@@ -138,7 +138,71 @@ function copyToClipboard(text) {
     });
 }
 
-// PHOTO UPLOAD TO CLOUDINARY
+// CALENDAR INTEGRATION
+const calendarBtn = document.getElementById('calendar-btn');
+const calendarOptions = document.getElementById('calendar-options');
+
+if (calendarBtn && calendarOptions) {
+    calendarBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        calendarOptions.classList.toggle('active');
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!calendarOptions.contains(e.target)) {
+            calendarOptions.classList.remove('active');
+        }
+    });
+
+    const eventDetails = {
+        title: "Boda de Carolina y Daniel",
+        description: "Acompáñanos a celebrar nuestra unión matrimonial. ¡Te esperamos!",
+        location: "Hacienda Santa Mónica, Carretera Norte Km 5.5",
+        start: "20261115T160000",
+        end: "20261116T020000"
+    };
+
+    // Google Calendar Link
+    document.getElementById('cal-google').addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${eventDetails.start}/${eventDetails.end}&details=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`;
+        window.open(url, '_blank');
+    });
+
+    // Outlook Link
+    document.getElementById('cal-outlook').addEventListener('click', function(e) {
+        e.preventDefault();
+        const url = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(eventDetails.title)}&startdt=${eventDetails.start}&enddt=${eventDetails.end}&body=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`;
+        window.open(url, '_blank');
+    });
+
+    // Apple/iCal Link
+    document.getElementById('cal-apple').addEventListener('click', function(e) {
+        e.preventDefault();
+        const icsData = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "BEGIN:VEVENT",
+            `DTSTART:${eventDetails.start}`,
+            `DTEND:${eventDetails.end}`,
+            `SUMMARY:${eventDetails.title}`,
+            `DESCRIPTION:${eventDetails.description}`,
+            `LOCATION:${eventDetails.location}`,
+            "END:VEVENT",
+            "END:VCALENDAR"
+        ].join("\n");
+        const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'boda-carolina-daniel.ics');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+}
+
+// PHOTO UPLOAD & GLOBAL GALLERY (CLOUDINARY)
 const CLOUD_NAME = 'dkozw2kmy';
 const UPLOAD_PRESET = 'unsigned_boda';
 const PHOTO_TAG = 'boda-fotos';
@@ -149,22 +213,13 @@ const uploadStatus = document.getElementById('upload-status');
 const uploadSuccess = document.getElementById('upload-success');
 const photoGallery = document.getElementById('photo-gallery');
 
-// Robust fetching from Cloudinary Resource List
 async function fetchCloudinaryGallery() {
     try {
-        console.log('Fetching Cloudinary gallery...');
-        // The Resource List JSON is cached by Cloudinary for a short time, 
-        // add a timestamp to force fresh data if needed, or rely on normal TTL
         const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/${PHOTO_TAG}.json?t=${Date.now()}`);
-        if (!res.ok) {
-            console.log('No photos found or listing disabled yet');
-            return;
-        }
+        if (!res.ok) return;
         const data = await res.json();
         renderCloudinaryGallery(data.resources);
-    } catch (err) {
-        console.error('Error fetching gallery:', err);
-    }
+    } catch (err) { console.error('Error fetching gallery:', err); }
 }
 
 function renderCloudinaryGallery(resources) {
@@ -172,22 +227,11 @@ function renderCloudinaryGallery(resources) {
         if (photoGallery) photoGallery.innerHTML = '';
         return;
     }
-
-    // Sort by version (newest first)
     resources.sort((a, b) => b.version - a.version);
-
     let html = '';
-
-    // Latest photo - large with badge
     const latest = resources[0];
     const latestUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_800,q_auto,f_auto/v${latest.version}/${latest.public_id}.${latest.format}`;
-    
-    html += '<div class="photo-gallery-latest">';
-    html += '  <span class="photo-badge">Recién subida</span>';
-    html += '  <img src="' + latestUrl + '" alt="Última foto">';
-    html += '</div>';
-
-    // Older photos - small grid
+    html += '<div class="photo-gallery-latest"><span class="photo-badge">Recién subida</span><img src="' + latestUrl + '" alt="Última foto"></div>';
     if (resources.length > 1) {
         html += '<div class="photo-gallery-grid">';
         var limit = Math.min(resources.length, 9);
@@ -198,62 +242,43 @@ function renderCloudinaryGallery(resources) {
         }
         html += '</div>';
     }
-
     photoGallery.innerHTML = html;
 }
 
-// Render on page load
 fetchCloudinaryGallery();
 
-btnCamera.addEventListener('click', function() {
-    photoInput.click();
-});
+if (btnCamera) {
+    btnCamera.addEventListener('click', () => photoInput.click());
+}
 
-photoInput.addEventListener('change', async function(e) {
-    var file = e.target.files[0];
-    if (!file) return;
-
-    btnCamera.style.display = 'none';
-    uploadStatus.style.display = 'flex';
-    uploadSuccess.style.display = 'none';
-
-    var formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', UPLOAD_PRESET);
-    formData.append('folder', 'boda-carolina-daniel');
-    formData.append('tags', PHOTO_TAG); // Ensure new uploads have the tag
-
-    try {
-        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!res.ok) throw new Error('Upload failed');
-
-        const data = await res.json();
-        console.log('Upload success:', data);
-
-        // Show success
-        uploadStatus.style.display = 'none';
-        uploadSuccess.style.display = 'flex';
-
-        // Refresh gallery after a small delay to let Cloudinary update the JSON list
-        setTimeout(() => {
-            fetchCloudinaryGallery();
-        }, 1500);
-
-        setTimeout(function() {
-            uploadSuccess.style.display = 'none';
+if (photoInput) {
+    photoInput.addEventListener('change', async function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        btnCamera.style.display = 'none';
+        uploadStatus.style.display = 'flex';
+        var formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+        formData.append('folder', 'boda-carolina-daniel');
+        formData.append('tags', PHOTO_TAG);
+        try {
+            const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
+            if (!res.ok) throw new Error('Upload failed');
+            uploadStatus.style.display = 'none';
+            uploadSuccess.style.display = 'flex';
+            setTimeout(() => { fetchCloudinaryGallery(); }, 1500);
+            setTimeout(function() {
+                uploadSuccess.style.display = 'none';
+                btnCamera.style.display = 'flex';
+                photoInput.value = '';
+            }, 3000);
+        } catch (err) {
+            console.error('Upload error:', err);
+            uploadStatus.style.display = 'none';
             btnCamera.style.display = 'flex';
             photoInput.value = '';
-        }, 3000);
-
-    } catch (err) {
-        console.error('Upload error:', err);
-        uploadStatus.style.display = 'none';
-        btnCamera.style.display = 'flex';
-        photoInput.value = '';
-        alert('Error al subir la foto. Intenta de nuevo.');
-    }
-});
+            alert('Error al subir la foto.');
+        }
+    });
+}

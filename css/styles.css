@@ -437,6 +437,38 @@ ul {
     background-repeat: repeat-x;
 }
 
+.countdown-section {
+    background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('../Invitaci\xf3n\20 Virtual\20 Boda\20 Fotogr\xe1fico\20 Verde\20 y\20 Blanco.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* RSVP IMPROVED */
+.rsvp-custom-btn {
+    display: inline-block;
+    max-width: 350px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.rsvp-img-btn {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.zoom-hover:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
+}
+
+/* FOOTER ======================================== */
+.footer-credits {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 50px;
+}
+
 .hero-content {
     margin-top: 30px;
     padding-bottom: 50px;
@@ -584,6 +616,58 @@ ul {
     .time-box { min-width: 60px; padding: 10px; }
     .time-box .number { font-size: 1.5rem; }
     .time-box .label { font-size: 0.6rem; }
+}
+
+/* CALENDAR DROPDOWN */
+.calendar-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.calendar-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    padding: 10px 0;
+    z-index: 100;
+    margin-top: 10px;
+    animation: fadeInDown 0.3s ease;
+}
+
+.calendar-options.active {
+    display: block;
+}
+
+.cal-opt {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background 0.3s;
+    font-size: 0.9rem;
+    gap: 10px;
+}
+
+.cal-opt i {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.cal-opt:hover {
+    background: #f7f9f4;
+    color: var(--primary-color);
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 /* LOCATION SECTION ======================================== */
