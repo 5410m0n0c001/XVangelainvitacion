@@ -157,12 +157,7 @@ ul {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease;
-}
-
-.envelope-video.visible {
-    opacity: 1;
+    /* Removed opacity: 0 to show first frame immediately */
 }
 
 .envelope-hint {

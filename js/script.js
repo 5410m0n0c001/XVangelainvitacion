@@ -8,8 +8,7 @@ envelopeScreen.addEventListener('click', () => {
         // Hide hint
         if (envelopeHint) envelopeHint.style.display = 'none';
         
-        // Show video and play
-        envelopeVideo.classList.add('visible');
+        // Play video
         envelopeVideo.play().catch(e => console.log('Video play failed:', e));
         
         // When video ends, fade out screen
