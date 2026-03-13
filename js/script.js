@@ -35,18 +35,18 @@ envelopeScreen.addEventListener('click', () => {
 });
 
 // SCROLL REVEAL ANIMATION
-const revealElements = document.querySelectorAll('.reveal, .reveal-fold, .fade-slide-in');
+const revealElements = document.querySelectorAll('.reveal, .card-flip-up, .scale-pulse, .text-reveal, .slide-left, .slide-right, .btn-bounce');
 
 const revealCallback = (entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
             
-            // Stagger internal elements if the target is a reveal-fold container
-            if (entry.target.classList.contains('reveal-fold')) {
-                const subElements = entry.target.querySelectorAll('.reveal, .fade-slide-in, .venue-card, .gift-card, .padrino-item');
+            // Stagger internal elements if the target is a container
+            const subElements = entry.target.querySelectorAll('.reveal, .text-reveal, .scale-pulse, .card-flip-up, .venue-card, .gift-card, .padrino-item, .color-swatch');
+            if (subElements.length > 0) {
                 subElements.forEach((el, index) => {
-                    setTimeout(() => el.classList.add('active'), index * 150);
+                    setTimeout(() => el.classList.add('active'), index * 200);
                 });
             }
         }
@@ -70,8 +70,25 @@ const countdownContainer = document.querySelector('.countdown-container');
 const celebrationSound = document.getElementById('celebration-sound');
 const balloonsContainer = document.getElementById('balloons-container');
 
+// Sound loop counter
+let soundPlayCount = 0;
+const maxSoundPlays = 4;
+
 function triggerCelebration() {
-    if (celebrationSound) celebrationSound.play().catch(e => console.log('Audio error:', e));
+    if (celebrationSound && soundPlayCount < maxSoundPlays) {
+        celebrationSound.play()
+            .then(() => {
+                soundPlayCount++;
+                celebrationSound.onended = () => {
+                    if (soundPlayCount < maxSoundPlays) {
+                        celebrationSound.play();
+                        soundPlayCount++;
+                    }
+                };
+            })
+            .catch(e => console.log('Audio error:', e));
+    }
+    
     if (balloonsContainer) {
         balloonsContainer.classList.add('active');
         spawnBalloons();
