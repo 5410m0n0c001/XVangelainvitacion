@@ -1,3 +1,5 @@
+// ENVELOPE VIDEO ANIMATION
+const envelopeScreen = document.getElementById('envelope-screen');
 const envelopeVideo = document.getElementById('envelope-video');
 const envelopeHint = document.querySelector('.envelope-hint');
 
