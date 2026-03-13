@@ -767,19 +767,50 @@ ul {
 
 .store-links {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
 }
 
-.store-btn {
-    background-color: #f2f5ef;
-    color: var(--text-color);
-    text-align: center;
+.store-btn-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(85, 107, 47, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.4s ease;
+    animation: pulseLogo 3s infinite ease-in-out;
+    min-width: 160px;
+    height: 70px;
 }
 
-.store-btn:hover {
-    background-color: var(--primary-color);
-    color: var(--white);
+.store-btn-logo:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background: #fff;
+    border-color: var(--primary-color);
+}
+
+.gift-logo {
+    width: 100%;
+    height: 100%;
+    max-height: 40px;
+    object-fit: contain;
+    filter: brightness(0.95);
+    transition: filter 0.3s ease;
+}
+
+.store-btn-logo:hover .gift-logo {
+    filter: brightness(1.05);
+}
+
+@keyframes pulseLogo {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); box-shadow: 0 8px 20px rgba(85, 107, 47, 0.12); }
+    100% { transform: scale(1); }
 }
 
 /* PHOTOS SECTION ======================================== */
