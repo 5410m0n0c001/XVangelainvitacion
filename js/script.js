@@ -1,37 +1,41 @@
-// ENVELOPE OPEN ANIMATION
+// ENVELOPE VIDEO ANIMATION
 const envelopeScreen = document.getElementById('envelope-screen');
-const envelopeSvg = document.getElementById('envelope-svg');
+const envelopeVideo = document.getElementById('envelope-video');
+const envelopeHint = document.querySelector('.envelope-hint');
 
 envelopeScreen.addEventListener('click', () => {
-    // Trigger the opening animation via CSS class
-    envelopeSvg.classList.add('opening');
+    if (envelopeVideo) {
+        // Hide hint
+        if (envelopeHint) envelopeHint.style.display = 'none';
+        
+        // Show video and play
+        envelopeVideo.classList.add('visible');
+        envelopeVideo.play().catch(e => console.log('Video play failed:', e));
+        
+        // When video ends, fade out screen
+        envelopeVideo.onended = () => {
+            envelopeScreen.classList.add('hidden');
+            
+            // Start bg music
+            const bgMusic = document.getElementById('bg-music');
+            const audioBtn = document.getElementById('audio-btn');
+            if (bgMusic && audioBtn) {
+                const icon = audioBtn.querySelector('i');
+                bgMusic.play().then(() => {
+                    audioBtn.classList.add('playing');
+                    if (icon) {
+                        icon.classList.remove('bx-volume-full');
+                        icon.classList.add('bx-volume-mute');
+                    }
+                }).catch(e => console.log('Audio autoplay blocked:', e));
+            }
 
-    // After flap opens, promote card to top layer so it slides ABOVE folds
-    setTimeout(() => {
-        const cardGroup = document.getElementById('card-group');
-        const sealGroup = document.getElementById('seal-group');
-        envelopeSvg.insertBefore(cardGroup, sealGroup);
-    }, 1900);
-    
-    // After full animation plays, fade out the entire envelope screen
-    setTimeout(() => {
-        envelopeScreen.classList.add('hidden');
-
-        // Start music after envelope opens (click satisfies autoplay policy)
-        const bgMusic = document.getElementById('bg-music');
-        const audioBtn = document.getElementById('audio-btn');
-        const icon = audioBtn.querySelector('i');
-        bgMusic.play().then(() => {
-            audioBtn.classList.add('playing');
-            icon.classList.remove('bx-volume-full');
-            icon.classList.add('bx-volume-mute');
-        }).catch(e => console.log('Audio autoplay blocked:', e));
-    }, 4200);
-
-    // Remove from DOM after transition completes
-    setTimeout(() => {
-        envelopeScreen.style.display = 'none';
-    }, 5000);
+            // Remove from DOM after fade
+            setTimeout(() => {
+                envelopeScreen.style.display = 'none';
+            }, 1600);
+        };
+    }
 });
 
 // SCROLL REVEAL ANIMATION

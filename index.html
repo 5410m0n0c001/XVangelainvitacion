@@ -26,82 +26,9 @@
     <!-- SOBRE DE CARTA - Pantalla de entrada -->
     <div class="envelope-screen" id="envelope-screen">
         <p class="envelope-hint">Toca para abrir</p>
-        <svg class="envelope-svg" id="envelope-svg" viewBox="0 0 600 480" xmlns="http://www.w3.org/2000/svg">
-            <!-- Sombra del sobre -->
-            <defs>
-                <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
-                    <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0,0,0,0.25)"/>
-                </filter>
-                <linearGradient id="envelopeGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#e8e3d3"/>
-                    <stop offset="100%" stop-color="#d1cda8"/>
-                </linearGradient>
-                <linearGradient id="flapGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#d1cda8"/>
-                    <stop offset="100%" stop-color="#c5c19a"/>
-                </linearGradient>
-                <linearGradient id="innerGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#f2f0e6"/>
-                    <stop offset="100%" stop-color="#e8e3d3"/>
-                </linearGradient>
-                <radialGradient id="sealGrad" cx="50%" cy="45%" r="50%">
-                    <stop offset="0%" stop-color="#6b8a3a"/>
-                    <stop offset="70%" stop-color="#556B2F"/>
-                    <stop offset="100%" stop-color="#3d4f1f"/>
-                </radialGradient>
-                <clipPath id="envelopeClip">
-                    <rect x="60" y="-200" width="480" height="640" rx="8"/>
-                </clipPath>
-            </defs>
-
-            <!-- Cuerpo del sobre -->
-            <rect class="envelope-body" x="60" y="140" width="480" height="300" rx="8" fill="url(#envelopeGrad)" filter="url(#shadow)"/>
-            
-            <!-- Interior del sobre (visible al abrir) -->
-            <rect x="60" y="140" width="480" height="300" rx="8" fill="url(#innerGrad)"/>
-
-            <!-- Triángulos internos decorativos -->
-            <polygon points="60,140 300,310 540,140" fill="#c5c19a" opacity="0.5"/>
-            <polygon points="60,440 300,310 60,200" fill="#bdb99a" opacity="0.3"/>
-            <polygon points="540,440 300,310 540,200" fill="#bdb99a" opacity="0.3"/>
-
-            <!-- Carta / tarjeta (oculta detrás del frente del sobre) -->
-            <g class="card-group" id="card-group" clip-path="url(#envelopeClip)">
-                <rect class="card" x="100" y="160" width="400" height="280" rx="6" fill="#ffffff" stroke="#d1cda8" stroke-width="1.5"/>
-                <!-- Texto posicionado para quedar visible ENCIMA del sobre al animar -->
-                <text x="300" y="310" text-anchor="middle" font-family="'Playfair Display', serif" font-size="22" fill="#556B2F" font-style="italic">Estás Invitado</text>
-                <line x1="180" y1="330" x2="420" y2="330" stroke="#d1cda8" stroke-width="1" opacity="0.5"/>
-                <line x1="200" y1="350" x2="400" y2="350" stroke="#d1cda8" stroke-width="1" opacity="0.3"/>
-            </g>
-
-            <!-- Cuerpo frontal del sobre (tapa la carta cuando está cerrado) -->
-            <rect class="envelope-front" x="60" y="140" width="480" height="300" rx="8" fill="url(#envelopeGrad)"/>
-            
-            <!-- Pliegue inferior del sobre -->
-            <polygon class="envelope-bottom-fold" points="60,440 300,310 540,440" fill="#c5c19a" stroke="#bdb99a" stroke-width="0.5"/>
-            
-            <!-- Pliegues laterales -->
-            <polygon class="envelope-left-fold" points="60,140 300,310 60,440" fill="#d6d2b8" stroke="#c5c19a" stroke-width="0.5"/>
-            <polygon class="envelope-right-fold" points="540,140 300,310 540,440" fill="#ccc8a8" stroke="#c5c19a" stroke-width="0.5"/>
-
-            <!-- Solapa superior (se abre con animación) -->
-            <g class="flap-group" id="flap-group">
-                <polygon class="envelope-flap" points="60,140 300,310 540,140" fill="url(#flapGrad)" stroke="#bdb99a" stroke-width="0.5"/>
-            </g>
-
-            <!-- Sello de cera con iniciales -->
-            <g class="seal-group" id="seal-group">
-                <circle cx="300" cy="260" r="42" fill="url(#sealGrad)" filter="url(#shadow)"/>
-                <circle cx="300" cy="260" r="38" fill="none" stroke="#3d4f1f" stroke-width="1" opacity="0.3"/>
-                <circle cx="300" cy="260" r="34" fill="none" stroke="#d1cda8" stroke-width="0.8" opacity="0.5"/>
-                <!-- Bordes decorativos del sello -->
-                <circle cx="300" cy="260" r="40" fill="none" stroke="#6b8a3a" stroke-width="2" stroke-dasharray="3 3" opacity="0.4"/>
-                <!-- Iniciales C & D -->
-                <text x="300" y="256" text-anchor="middle" font-family="'Playfair Display', serif" font-size="26" fill="#d1cda8" font-weight="600" letter-spacing="2">C</text>
-                <text x="300" y="270" text-anchor="middle" font-family="'Montserrat', sans-serif" font-size="10" fill="#d1cda8" opacity="0.9">&amp;</text>
-                <text x="300" y="286" text-anchor="middle" font-family="'Playfair Display', serif" font-size="26" fill="#d1cda8" font-weight="600" letter-spacing="2">D</text>
-            </g>
-        </svg>
+        <video id="envelope-video" class="envelope-video" playsinline>
+            <source src="sobre.mp4" type="video/mp4">
+        </video>
     </div>
 
     <!-- Navegación Flotante -->
