@@ -65,7 +65,16 @@
             <polygon points="60,440 300,310 60,200" fill="#bdb99a" opacity="0.3"/>
             <polygon points="540,440 300,310 540,200" fill="#bdb99a" opacity="0.3"/>
 
-            <!-- Cuerpo frontal del sobre (tapa el interior) -->
+            <!-- Carta / tarjeta (oculta detrás del frente del sobre) -->
+            <g class="card-group" id="card-group" clip-path="url(#envelopeClip)">
+                <rect class="card" x="100" y="160" width="400" height="280" rx="6" fill="#ffffff" stroke="#d1cda8" stroke-width="1.5"/>
+                <!-- Texto posicionado para quedar visible ENCIMA del sobre al animar -->
+                <text x="300" y="310" text-anchor="middle" font-family="'Playfair Display', serif" font-size="22" fill="#556B2F" font-style="italic">Estás Invitado</text>
+                <line x1="180" y1="330" x2="420" y2="330" stroke="#d1cda8" stroke-width="1" opacity="0.5"/>
+                <line x1="200" y1="350" x2="400" y2="350" stroke="#d1cda8" stroke-width="1" opacity="0.3"/>
+            </g>
+
+            <!-- Cuerpo frontal del sobre (tapa la carta cuando está cerrado) -->
             <rect class="envelope-front" x="60" y="140" width="480" height="300" rx="8" fill="url(#envelopeGrad)"/>
             
             <!-- Pliegue inferior del sobre -->
@@ -78,15 +87,6 @@
             <!-- Solapa superior (se abre con animación) -->
             <g class="flap-group" id="flap-group">
                 <polygon class="envelope-flap" points="60,140 300,310 540,140" fill="url(#flapGrad)" stroke="#bdb99a" stroke-width="0.5"/>
-            </g>
-
-            <!-- Carta / tarjeta que sale del sobre (ENCIMA de los pliegues) -->
-            <g class="card-group" id="card-group" clip-path="url(#envelopeClip)">
-                <rect class="card" x="100" y="160" width="400" height="280" rx="6" fill="#ffffff" stroke="#d1cda8" stroke-width="1.5"/>
-                <!-- Texto posicionado para quedar visible ENCIMA del sobre al animar -->
-                <text x="300" y="310" text-anchor="middle" font-family="'Playfair Display', serif" font-size="22" fill="#556B2F" font-style="italic">Estás Invitado</text>
-                <line x1="180" y1="330" x2="420" y2="330" stroke="#d1cda8" stroke-width="1" opacity="0.5"/>
-                <line x1="200" y1="350" x2="400" y2="350" stroke="#d1cda8" stroke-width="1" opacity="0.3"/>
             </g>
 
             <!-- Sello de cera con iniciales -->

@@ -3,6 +3,11 @@ const envelopeScreen = document.getElementById('envelope-screen');
 const envelopeSvg = document.getElementById('envelope-svg');
 
 envelopeScreen.addEventListener('click', () => {
+    // Move card to top of SVG layer stack so it renders ABOVE the folds
+    const cardGroup = document.getElementById('card-group');
+    const sealGroup = document.getElementById('seal-group');
+    envelopeSvg.insertBefore(cardGroup, sealGroup);
+    
     // Trigger the opening animation via CSS class
     envelopeSvg.classList.add('opening');
     
