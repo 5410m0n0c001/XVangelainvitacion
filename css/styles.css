@@ -837,18 +837,18 @@ ul {
 
 .balloon-img {
     position: absolute;
-    bottom: -150px;
-    width: 80px;
+    bottom: -300px;
+    width: 250px;
     height: auto;
-    animation: floatBalloons 8s linear infinite;
-    opacity: 0.8;
+    animation: floatBalloons 12s linear infinite;
+    opacity: 0.5;
 }
 
 @keyframes floatBalloons {
     0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.8; }
-    90% { opacity: 0.8; }
-    100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-150vh) rotate(20deg); opacity: 0; }
 }
 
 .audio-btn { bottom: 20px; }

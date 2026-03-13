@@ -72,16 +72,16 @@ function triggerCelebration() {
 }
 
 function spawnBalloons() {
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 8; i++) {
         setTimeout(() => {
             const balloon = document.createElement('img');
             balloon.src = 'globos.png';
             balloon.className = 'balloon-img';
-            balloon.style.left = Math.random() * 90 + '%';
-            balloon.style.animationDelay = Math.random() * 5 + 's';
-            balloon.style.width = (40 + Math.random() * 60) + 'px';
+            balloon.style.left = Math.random() * 80 + '%';
+            balloon.style.animationDelay = (Math.random() * 8) + 's';
+            balloon.style.width = (180 + Math.random() * 120) + 'px';
             balloonsContainer.appendChild(balloon);
-        }, i * 300);
+        }, i * 600);
     }
 }
 
