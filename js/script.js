@@ -3,15 +3,17 @@ const envelopeScreen = document.getElementById('envelope-screen');
 const envelopeSvg = document.getElementById('envelope-svg');
 
 envelopeScreen.addEventListener('click', () => {
-    // Move card to top of SVG layer stack so it renders ABOVE the folds
-    const cardGroup = document.getElementById('card-group');
-    const sealGroup = document.getElementById('seal-group');
-    envelopeSvg.insertBefore(cardGroup, sealGroup);
-    
     // Trigger the opening animation via CSS class
     envelopeSvg.classList.add('opening');
+
+    // After flap opens, promote card to top layer so it slides ABOVE folds
+    setTimeout(() => {
+        const cardGroup = document.getElementById('card-group');
+        const sealGroup = document.getElementById('seal-group');
+        envelopeSvg.insertBefore(cardGroup, sealGroup);
+    }, 1200);
     
-    // After animation plays, fade out the entire envelope screen
+    // After full animation plays, fade out the entire envelope screen
     setTimeout(() => {
         envelopeScreen.classList.add('hidden');
 
@@ -24,12 +26,12 @@ envelopeScreen.addEventListener('click', () => {
             icon.classList.remove('bx-volume-full');
             icon.classList.add('bx-volume-mute');
         }).catch(e => console.log('Audio autoplay blocked:', e));
-    }, 1800);
+    }, 3000);
 
     // Remove from DOM after transition completes
     setTimeout(() => {
         envelopeScreen.style.display = 'none';
-    }, 2600);
+    }, 3800);
 });
 
 // SCROLL REVEAL ANIMATION
