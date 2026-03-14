@@ -160,6 +160,9 @@ const countdown = setInterval(() => {
 }, 1000);
 
 // FLOATING NAV ACTIVE STATE (Optimized with IntersectionObserver)
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.floating-nav ul li a');
+
 const sectionObserverOptions = {
     threshold: 0.3, // 30% of the section visible
     rootMargin: "-20% 0px -20% 0px" // Focus on the middle of the screen
@@ -188,19 +191,25 @@ const audioBtn = document.getElementById('audio-btn');
 const bgMusic = document.getElementById('bg-music');
 const icon = audioBtn.querySelector('i');
 
-audioBtn.addEventListener('click', () => {
-    if (bgMusic.paused) {
-        bgMusic.play().catch(e => console.log("Can't play audio automatically without user interaction."));
-        audioBtn.classList.add('playing');
-        icon.classList.remove('bx-volume-full');
-        icon.classList.add('bx-volume-mute');
-    } else {
-        bgMusic.pause();
-        audioBtn.classList.remove('playing');
-        icon.classList.remove('bx-volume-mute');
-        icon.classList.add('bx-volume-full');
-    }
-});
+if (audioBtn && bgMusic) {
+    audioBtn.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play().catch(e => console.log("Can't play audio automatically without user interaction."));
+            audioBtn.classList.add('playing');
+            if (icon) {
+                icon.classList.remove('bx-volume-full');
+                icon.classList.add('bx-volume-mute');
+            }
+        } else {
+            bgMusic.pause();
+            audioBtn.classList.remove('playing');
+            if (icon) {
+                icon.classList.remove('bx-volume-mute');
+                icon.classList.add('bx-volume-full');
+            }
+        }
+    });
+}
 
 // CLIPBOARD COPY
 function copyToClipboard(text) {
