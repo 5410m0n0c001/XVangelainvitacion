@@ -280,11 +280,25 @@ ul {
 .audio-btn { top: 20px; }
 .share-btn-sticky { top: 80px; } /* Positioned below audio */
 
-.audio-btn i, .share-btn-sticky i {
+.audio-btn i {
     font-size: 1.6rem !important;
     color: var(--primary-color) !important;
     display: block !important;
     visibility: visible !important;
+}
+
+.share-icon-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.share-icon-qr-img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    object-fit: contain;
+    vertical-align: middle;
 }
 
 .audio-btn.playing {
@@ -321,8 +335,20 @@ ul {
 }
 
 @keyframes cursorBlink {
-    0%, 100% { border-color: transparent; }
-    50% { border-color: var(--primary-color); }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.typing-container::after {
+    content: '|';
+    margin-left: 2px;
+    color: var(--primary-color);
+    animation: cursorBlink 0.8s infinite;
+}
+
+/* Hide cursor when typing is done or not active */
+.typing-container.done::after {
+    display: none;
 }
 
 /* Slide-In Animations */
@@ -1472,9 +1498,10 @@ section {
 }
 
 @keyframes balloonUltraClean {
-    0% { transform: translateY(110vh) rotate(-10deg); }
-    50% { transform: translateY(-110vh) rotate(10deg); }
-    100% { transform: translateY(110vh) rotate(-10deg); }
+    0% { transform: translateY(110vh) rotate(-10deg); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(-110vh) rotate(10deg); opacity: 0; }
 }
 
 .balloon-img:nth-child(2) {

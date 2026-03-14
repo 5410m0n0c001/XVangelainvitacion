@@ -89,9 +89,9 @@ const revealCallback = (entries, observer) => {
 };
 
 function typeEffect(element) {
-    const text = element.textContent;
+    const text = element.textContent.trim();
     element.textContent = "";
-    element.classList.add('typing-cursor-blink');
+    element.style.visibility = "visible";
     let i = 0;
     const interval = setInterval(() => {
         if (i < text.length) {
@@ -99,11 +99,9 @@ function typeEffect(element) {
             i++;
         } else {
             clearInterval(interval);
-            setTimeout(() => {
-                element.classList.remove('typing-cursor-blink');
-            }, 600); // Faster cursor removal
+            element.classList.add('done');
         }
-    }, 60); // Faster typing
+    }, 70);
 }
 
 const revealOptions = {
@@ -206,27 +204,24 @@ const icon = audioBtn.querySelector('i');
 if (audioBtn && bgMusic) {
     audioBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        e.stopPropagation();
         const iconElement = audioBtn.querySelector('i');
         
         if (bgMusic.paused) {
-            // First, update the UI to show and "attempt" to play
-            audioBtn.classList.add('playing');
-            if (iconElement) iconElement.className = 'bx bx-volume-high';
-            
             bgMusic.play().then(() => {
-                console.log("Music started successfully");
+                audioBtn.classList.add('playing');
+                if (iconElement) iconElement.className = 'bx bx-volume-high';
                 audioBtn.setAttribute('aria-label', "Pausar música");
             }).catch(err => {
-                console.warn("Audio blocked by browser, but UI updated:", err);
-                // Keep the 'playing' class so the user knows they "turned it on"
+                console.warn("Audio blocked:", err);
+                // Forced UI toggle for feedback
+                audioBtn.classList.add('playing');
+                if (iconElement) iconElement.className = 'bx bx-volume-high';
             });
         } else {
             bgMusic.pause();
             audioBtn.classList.remove('playing');
             if (iconElement) iconElement.className = 'bx bx-volume-mute';
             audioBtn.setAttribute('aria-label', "Reproducir música");
-            console.log("Music paused");
         }
     });
 }
