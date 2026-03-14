@@ -143,6 +143,7 @@ function triggerCelebration() {
     }
     
     if (balloonsContainer) {
+        balloonsContainer.style.display = 'block';
         balloonsContainer.classList.add('active');
         spawnBalloons();
     }
@@ -208,7 +209,7 @@ if (audioBtn && bgMusic) {
                 audioBtn.classList.add('playing');
                 if (icon) {
                     icon.className = 'bx bx-volume-high'; // High fidelity icon
-                    icon.style.color = 'white'; // Direct contrast force
+                    icon.style.color = 'white';
                 }
             }).catch(e => console.log("Can't play audio:", e));
         } else {
