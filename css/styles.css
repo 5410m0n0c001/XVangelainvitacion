@@ -296,11 +296,18 @@ ul {
 }
 
 .share-icon-img {
-    width: 80px; /* Increased size for mobile UX */
-    height: 80px;
+    width: 100px; /* Even larger for Wow factor and touchability on mobile */
+    height: 100px;
     object-fit: contain;
     filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4));
     transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .share-icon-img {
+        width: 110px;
+        height: 110px;
+    }
 }
 
 .share-btn-sticky:hover .share-icon-img {
@@ -325,6 +332,9 @@ ul {
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
+    z-index: 5;
+    position: relative;
+    font-size: 1.8rem !important;
 }
 
 /* Share button inside nav */
@@ -460,13 +470,15 @@ ul {
 
 .hero-video-container {
     width: 100% !important;
-    height: 100vh !important;
+    height: 100% !important; /* Adapt to section height */
+    min-height: 100vh;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     overflow: hidden;
     z-index: 1;
-    border-radius: 0 !important; /* KILL THE BOX */
+    border-radius: 0 !important;
     border: none !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -483,26 +495,27 @@ ul {
 }
 
 .hero-content {
-    background: rgba(255, 255, 255, 0.65); /* Glass effect for all screens */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 30px 25px;
+    background: rgba(255, 255, 255, 0.45); /* Lighter for mobile glass */
+    backdrop-filter: blur(15px); /* Stronger blur for "laminado" effect */
+    -webkit-backdrop-filter: blur(15px);
+    padding: 25px 20px;
     border-radius: 30px;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.1);
     z-index: 10;
-    width: 90%;
-    max-width: 600px;
-    margin: 20px;
-    border: 1px solid rgba(255,255,255,0.4);
+    width: 85%;
+    max-width: 500px;
+    margin: 10px;
+    border: 1px solid rgba(255,255,255,0.3);
+    text-align: center;
 }
 
-/* Desktop CINEMA mode refinements */
+/* Desktop refinements */
 @media (min-width: 992px) {
     .hero-content {
         transform: scale(1.1);
         padding: 40px 60px;
         max-width: 800px;
-        background: rgba(255, 255, 255, 0.75);
+        background: rgba(255, 255, 255, 0.7);
     }
 }
 
@@ -1537,7 +1550,7 @@ section {
     width: 100%;
     height: 100%;
     pointer-events: none !important;
-    z-index: 999999 !important;
+    z-index: 9000 !important; /* Pass BEHIND floating-nav (9999) */
     overflow: hidden;
     display: none;
 }
