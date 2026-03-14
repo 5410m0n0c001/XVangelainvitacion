@@ -244,21 +244,26 @@ const shareBtn = document.getElementById('share-btn-sticky');
 
 if (shareBtn) {
     shareBtn.addEventListener('click', async () => {
+        const shareData = {
+            title: 'Invitación a la Boda de Carolina & Daniel',
+            text: '¡Acompáñanos a celebrar nuestra unión matrimonial!',
+            url: window.location.href.split('?')[0] // Clean URL
+        };
+
         if (navigator.share) {
             try {
-                await navigator.share({
-                    title: 'Invitación a la Boda de Carolina & Daniel',
-                    text: '¡Acompáñanos a celebrar nuestra unión matrimonial!',
-                    url: window.location.href
-                });
+                await navigator.share(shareData);
             } catch (err) {
-                console.error('Error sharing:', err);
+                if (err.name !== 'AbortError') console.error('Error sharing:', err);
             }
         } else {
             // Fallback: Copy URL to clipboard
-            navigator.clipboard.writeText(window.location.href).then(() => {
+            try {
+                await navigator.clipboard.writeText(shareData.url);
                 alert('Enlace de invitación copiado al portapapeles.');
-            });
+            } catch (err) {
+                console.error('Clipboard error:', err);
+            }
         }
     });
 }
@@ -350,17 +355,26 @@ function renderCloudinaryGallery(resources) {
     }
     resources.sort((a, b) => b.version - a.version);
     let html = '';
+    
+    // Feature the latest photo as the "visor" entry
     const latest = resources[0];
     const latestUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_1200,q_auto,f_auto/v${latest.version}/${latest.public_id}.${latest.format}`;
-    html += '<div class="photo-gallery-latest reveal"><span class="photo-badge">Recién subida</span><img src="' + latestUrl + '" alt="Última foto" onclick="openVisor(\'' + latestUrl + '\')"></div>';
+    
+    html += `
+        <div class="photo-gallery-latest reveal active">
+            <span class="photo-badge">Última Foto</span>
+            <img src="${latestUrl}" alt="Última foto subida" onclick="openVisor('${latestUrl}')" style="cursor: pointer;">
+        </div>
+    `;
+
     if (resources.length > 1) {
-        html += '<div class="photo-gallery-grid reveal">';
-        var limit = Math.min(resources.length, 12);
-        for (var i = 1; i < limit; i++) {
+        html += '<div class="photo-gallery-grid reveal active">';
+        const limit = Math.min(resources.length, 13); // Show more thumbnails
+        for (let i = 1; i < limit; i++) {
             const r = resources[i];
             const fullUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_1200,q_auto,f_auto/v${r.version}/${r.public_id}.${r.format}`;
             const thumbUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_300,h_300,c_fill,q_auto,f_auto/v${r.version}/${r.public_id}.${r.format}`;
-            html += '<img src="' + thumbUrl + '" alt="Foto compartida" onclick="openVisor(\'' + fullUrl + '\')">';
+            html += `<img src="${thumbUrl}" alt="Foto del evento" onclick="openVisor('${fullUrl}')" style="cursor: pointer;">`;
         }
         html += '</div>';
     }
@@ -375,19 +389,24 @@ const visorClose = document.getElementById('visor-close');
 function openVisor(url) {
     if (albumVisor && visorImg) {
         visorImg.src = url;
-        albumVisor.style.display = "block";
+        albumVisor.style.display = "flex"; // Changed to flex for centering
+        document.body.style.overflow = "hidden"; // Prevent background scroll
     }
 }
 
 if (visorClose) {
-    visorClose.onclick = () => albumVisor.style.display = "none";
+    visorClose.onclick = () => {
+        albumVisor.style.display = "none";
+        document.body.style.overflow = "auto";
+    };
 }
 
-window.onclick = (event) => {
+window.addEventListener('click', (event) => {
     if (event.target == albumVisor) {
         albumVisor.style.display = "none";
+        document.body.style.overflow = "auto";
     }
-};
+});
 
 fetchCloudinaryGallery();
 
@@ -429,15 +448,13 @@ if (photoInput) {
 // QR CODE SHARING (Using static image)
 function initQRCode() {
     const btnShareQr = document.getElementById('btn-share-qr');
-    const qrImage = document.getElementById('qr-image');
-    
-    if (!btnShareQr || !qrImage) return;
+    if (!btnShareQr) return;
 
-    // Share QR Button
     btnShareQr.addEventListener('click', async () => {
         try {
-            // Fetch the image to share as a file
-            const response = await fetch('qr.png');
+            // Use the absolute path for the QR image
+            const qrUrl = window.location.origin + window.location.pathname.replace('index.html', '') + 'qr.png';
+            const response = await fetch(qrUrl);
             const blob = await response.blob();
             const file = new File([blob], "codigo-qr-boda.png", { type: "image/png" });
             
@@ -448,23 +465,23 @@ function initQRCode() {
                     text: 'Escanea este código para compartir tus fotos con nosotros.'
                 });
             } else if (navigator.share) {
-                // Fallback for browsers that don't support file sharing but do support text/url
                 await navigator.share({
                     title: 'Código QR de Nuestra Boda',
                     text: 'Escanea este código para compartir tus fotos con nosotros.',
-                    url: window.location.origin + window.location.pathname + 'qr.png'
+                    url: qrUrl
                 });
             } else {
-                alert('Tu navegador no soporta la función de compartir.');
+                // Fallback for desktop or non-sharing browsers: open in new tab
+                window.open(qrUrl, '_blank');
             }
         } catch (err) {
             console.error('Error sharing QR:', err);
-            // Fallback for sharing the link if fetching the image fails
+            // Simple link fallback
             if (navigator.share) {
                 await navigator.share({
-                    title: 'Comparte tus momentos',
-                    text: 'Usa este código para subir tus fotos a nuestro álbum.',
-                    url: window.location.origin + window.location.pathname + 'smartlanding.html'
+                    title: 'Álbum de Fotos de la Boda',
+                    text: 'Sube tus fotos aquí!',
+                    url: window.location.origin + window.location.pathname.replace('index.html', '') + 'smartlanding.html'
                 });
             }
         }

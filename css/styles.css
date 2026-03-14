@@ -278,7 +278,15 @@ ul {
 }
 
 .audio-btn { top: 20px; }
-.share-btn-sticky { top: 80px; } /* Positioned below audio */
+.share-btn-sticky { 
+    top: auto; 
+    bottom: 80px; /* Positioned above the naval bar, but sticky on the right */
+    right: 20px;
+    background: transparent !important; /* No background as requested */
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0;
+}
 
 .audio-btn i {
     font-size: 1.6rem !important;
@@ -288,9 +296,15 @@ ul {
 }
 
 .share-icon-img {
-    width: 32px;
-    height: 32px;
+    width: 60px; /* Larger as it's the main button now */
+    height: 60px;
     object-fit: contain;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+    transition: transform 0.3s ease;
+}
+
+.share-btn-sticky:hover .share-icon-img {
+    transform: scale(1.1) rotate(5deg);
 }
 
 .share-icon-qr-img {
@@ -1350,21 +1364,19 @@ ul {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 25px;
+    padding: 10px 20px;
     background: transparent;
-    border: 1.5px solid var(--primary-color);
+    border: none; /* Removed border to use the image as button */
     color: var(--primary-color);
-    border-radius: 50px;
     font-family: var(--font-body);
-    font-weight: 500;
+    font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
 }
 
 .btn-share-qr:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
+    transform: scale(1.05);
+    background: transparent;
 }
 
 .btn-share-qr i {
@@ -1554,14 +1566,17 @@ section {
 .album-visor-container {
     display: none;
     position: fixed;
-    z-index: 2000000 !important; /* Extremely high to be above balloons */
-    padding-top: 50px;
+    z-index: 2000000 !important;
+    padding: 20px;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.95);
-    backdrop-filter: blur(15px);
+    background-color: rgba(0,0,0,0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
 }
 
 .visor-content {
