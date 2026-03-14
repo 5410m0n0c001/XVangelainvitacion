@@ -481,14 +481,12 @@ ul {
     width: 100% !important;
     height: 100vh !important;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     overflow: hidden;
     z-index: 1;
     border-radius: 0 !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
 }
 
 .hero-video {
@@ -644,7 +642,7 @@ ul {
 /* Desktop reduction for rsvp */
 @media (min-width: 992px) {
     .rsvp-img-btn {
-        max-width: 280px !important;
+        max-width: 220px !important;
     }
 }
 
