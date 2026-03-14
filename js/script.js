@@ -70,14 +70,8 @@ const revealCallback = (entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('active');
-            
-            // Stagger internal elements if the target is a container
-            const subElements = entry.target.querySelectorAll('.reveal, .text-reveal, .scale-pulse, .card-flip-up, .venue-card, .gift-card, .padrino-item, .color-swatch');
-            if (subElements.length > 0) {
-                subElements.forEach((el, index) => {
-                    setTimeout(() => el.classList.add('active'), index * 200);
-                });
-            }
+            // Observer no longer needs to track this element once active
+            observer.unobserve(entry.target);
         }
     });
 };
@@ -157,31 +151,28 @@ const countdown = setInterval(() => {
     }
 }, 1000);
 
-// FLOATING NAV ACTIVE STATE
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('.floating-nav ul li a');
+// FLOATING NAV ACTIVE STATE (Optimized with IntersectionObserver)
+const sectionObserverOptions = {
+    threshold: 0.3, // 30% of the section visible
+    rootMargin: "-20% 0px -20% 0px" // Focus on the middle of the screen
+};
 
-window.addEventListener('scroll', () => {
-    let current = '';
-    
-    // Add small offset to correctly detect current section
-    const scrollY = window.pageYOffset + window.innerHeight / 3;
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const current = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
         }
     });
+}, sectionObserverOptions);
 
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) {
-            link.classList.add('active');
-        }
-    });
+sections.forEach(section => {
+    sectionObserver.observe(section);
 });
 
 // AUDIO PLAYER
