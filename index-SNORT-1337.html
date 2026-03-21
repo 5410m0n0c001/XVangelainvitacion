@@ -37,7 +37,7 @@
     <!-- SOBRE DE CARTA - Pantalla de entrada -->
     <div class="envelope-screen" id="envelope-screen">
         <p class="envelope-hint">Toca para abrir</p>
-        <video id="envelope-video" class="envelope-video" muted playsinline preload="auto">
+        <video id="envelope-video" class="envelope-video" muted playsinline preload="auto" poster="sobre.png">
             <source src="sobre.mp4" type="video/mp4">
         </video>
     </div>
@@ -45,23 +45,20 @@
     <!-- Navegación Flotante -->
     <nav class="floating-nav">
         <ul>
-            <li><a href="#hero" class="active" title="Inicio"><i class='bx bx-home-heart'></i></a></li>
-            <li><a href="#clima" title="Clima"><i class='bx bx-cloud-snow'></i></a></li>
-            <li><a href="#itinerario" title="Itinerario"><i class='bx bx-time-five'></i></a></li>
-            <li><a href="#ubicacion" title="Ubicación"><i class='bx bx-map'></i></a></li>
-            <li><a href="#menus" title="Menús"><i class='bx bx-dish'></i></a></li>
-            <li><a href="#codigo-vestimenta" title="Código"><i class='bx bx-closet' ></i></a></li>
-            <li><a href="#padrinos" title="Padrinos"><i class='bx bx-group'></i></a></li>
-            <li><a href="#mesa-regalos" title="Regalos"><i class='bx bx-gift'></i></a></li>
-            <li><a href="#fotos" title="Fotos"><i class='bx bx-camera'></i></a></li>
-            <li><a href="#hospedaje" title="Hospedaje"><i class='bx bx-bed'></i></a></li>
-            <li><a href="#rsvp" title="Asistencia"><i class='bx bx-check-double'></i></a></li>
+            <li><a href="#hero" class="active"><i class='bx bx-home-heart'></i></a></li>
+            <li><a href="#fecha"><i class='bx bx-calendar-event'></i></a></li>
+            <li><a href="#ubicacion"><i class='bx bx-map'></i></a></li>
+            <li><a href="#codigo-vestimenta"><i class='bx bx-closet' ></i></a></li>
+            <li><a href="#padrinos"><i class='bx bx-group'></i></a></li>
+            <li><a href="#mesa-regalos"><i class='bx bx-gift'></i></a></li>
+            <li><a href="#fotos"><i class='bx bx-camera'></i></a></li>
+            <li><a href="#rsvp"><i class='bx bx-check-double'></i></a></li>
         </ul>
     </nav>
 
     <!-- Reproductor de Audio -->
     <button class="audio-btn" id="audio-btn" aria-label="Reproducir música">
-        <video id="audio-btn-video" src="music2.mp4" muted loop playsinline></video>
+        <video id="audio-btn-video" src="music2.mp4" muted loop autoplay playsinline></video>
     </button>
     
     <!-- Botón Compartir Sticky -->
@@ -193,71 +190,6 @@
             <div class="paper-rip-bottom"></div>
         </section>
 
-        <!-- SECCIÓN: ITINERARIO -->
-        <section id="itinerario" class="itinerario-section py-5">
-            <div class="container text-center reveal">
-                <h2 class="section-title">Minuto a Minuto</h2>
-                <p class="mt-3 mb-5 text-muted">Acompáñanos en cada momento especial de nuestro gran día.</p>
-                
-                <div class="timeline">
-                    <!-- Item 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <i class='bx bx-church event-icon'></i>
-                            <span class="time-tag">16:00 HRS</span>
-                            <h3 class="event-title">Ceremonia Religiosa</h3>
-                            <p class="event-desc">Parroquia de San Miguel Arcángel. Puntualidad recomendada.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <i class='bx bx-glass event-icon'></i>
-                            <span class="time-tag">17:30 HRS</span>
-                            <h3 class="event-title">Cóctel de Bienvenida</h3>
-                            <p class="event-desc">Recepción en Hacienda Santa Mónica con bebidas refrescantes.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <i class='bx bx-star event-icon'></i>
-                            <span class="time-tag">18:30 HRS</span>
-                            <h3 class="event-title">Entrada de los Novios</h3>
-                            <p class="event-desc">Momento de recibir a los recién casados en la recepción.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 4 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <i class='bx bx-restaurant event-icon'></i>
-                            <span class="time-tag">19:30 HRS</span>
-                            <h3 class="event-title">Banquete</h3>
-                            <p class="event-desc">Degustación de nuestro menú seleccionado especialmente para ti.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 5 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <i class='bx bx-music event-icon'></i>
-                            <span class="time-tag">21:30 HRS</span>
-                            <h3 class="event-title">Primer Baile & Fiesta</h3>
-                            <p class="event-desc">Apertura de la pista y celebración continua hasta el amanecer.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- SECCIÓN 4: CÓDIGO DE VESTIMENTA -->
         <section id="codigo-vestimenta" class="dresscode-section py-5">
             <div class="container text-center reveal">
@@ -306,102 +238,7 @@
                     </div>
                 </div>
              </div>
-            <div class="paper-rip-bottom"></div>
-        </section>
-
-        <!-- SECCIÓN: MENÚS -->
-        <section id="menus" class="menus-section py-5">
-            <div class="container text-center reveal">
-                <h2 class="section-title">Nuestra Propuesta Gastronómica</h2>
-                <p class="mt-3 text-muted">Hemos seleccionado cada detalle para deleitar tu paladar.</p>
-                
-                <div class="menu-btn-container">
-                    <button class="btn-menu-toggle active" id="btn-menu-foods">
-                        <i class='bx bx-restaurant'></i> Banquete
-                    </button>
-                    <button class="btn-menu-toggle" id="btn-menu-drinks">
-                        <i class='bx bx-drink'></i> Bebidas y Coctelería
-                    </button>
-                </div>
-
-                <!-- Menú Alimentos -->
-                <div class="menu-display active" id="menu-foods">
-                    <div class="menu-category">
-                        <h4>Entradas</h4>
-                        <div class="menu-item">
-                            <strong>Crema de Tres Quesos</strong>
-                            <span>Con lluvia de nuez y crutones a las finas hierbas.</span>
-                        </div>
-                    </div>
-                    <div class="menu-category mt-4">
-                        <h4>Plato Fuerte</h4>
-                        <div class="menu-item">
-                            <strong>Filete en Salsa de Vino Tinto</strong>
-                            <span>Acompañado de puré de papa rústico y espárragos al grill.</span>
-                        </div>
-                    </div>
-                    <div class="menu-category mt-4">
-                        <h4>Postre</h4>
-                        <div class="menu-item">
-                            <strong>Cheesecake de Frutos Rojos</strong>
-                            <span>Con una base crujiente de galleta y coulis de frambuesa.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Menú Bebidas -->
-                <div class="menu-display" id="menu-drinks">
-                    <div class="menu-category">
-                        <h4>Mixología</h4>
-                        <div class="menu-item">
-                            <strong>Margarita de Maracuyá</strong>
-                            <span>Tequila premium, pulpa fresca de maracuyá y un toque de chile ancho.</span>
-                        </div>
-                        <div class="menu-item">
-                            <strong>Gin Tonic Primavera</strong>
-                            <span>Ginebra, frutos rojos, pétalos de rosa y agua tónica.</span>
-                        </div>
-                    </div>
-                    <div class="menu-category mt-4">
-                        <h4>Clásicos</h4>
-                        <div class="menu-item">
-                            <strong>Selección de Vinos</strong>
-                            <span>Tinto, Blanco y Rosado.</span>
-                        </div>
-                        <div class="menu-item">
-                            <strong>Refrescos y Coctelería sin Alcohol</strong>
-                            <span>Surtido de bebidas para todos los gustos.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN: HOSPEDAJE SUGERIDO -->
-        <section id="hospedaje" class="hospedaje-section py-5 bg-light-green">
-            <div class="container text-center reveal">
-                <h2 class="section-title">Hospedaje Sugerido</h2>
-                <p class="mt-3 text-muted">Para tu mayor comodidad, te sugerimos estas opciones cercanas al evento.</p>
-                <p class="mb-4" style="font-size: 0.9rem; color: var(--primary-color);">* Por favor, consultar disponibilidad con previo tiempo.</p>
-                
-                <div class="padrinos-grid"> <!-- Reusing grid for consistent layout -->
-                    <div class="padrino-item">
-                        <i class='bx bx-hotel' style="font-size: 2rem; color: var(--accent-color);"></i>
-                        <h4 class="mt-2">Residencial Hacienda Real</h4>
-                        <p>A solo 5 min del salón. Ambiente familiar y amplios jardines.</p>
-                    </div>
-                    <div class="padrino-item">
-                        <i class='bx bx-buildings' style="font-size: 2rem; color: var(--accent-color);"></i>
-                        <h4 class="mt-2">Hotel Boutique Temixco</h4>
-                        <p>Opción elegante y moderna en el corazón de la zona.</p>
-                    </div>
-                    <div class="padrino-item">
-                        <i class='bx bxs-institution' style="font-size: 2rem; color: var(--accent-color);"></i>
-                        <h4 class="mt-2">Posada del Sol</h4>
-                        <p>Excelente relación calidad-precio y desayuno incluido.</p>
-                    </div>
-                </div>
-            </div>
+             <div class="paper-rip-bottom"></div>
         </section>
 
         <!-- SECCIÓN 6: MESA DE REGALOS -->
@@ -474,23 +311,18 @@
                 </div>
             </div>
         </section>
-        <!-- SECCIÓN: CLIMA EN TEMIXCO -->
-        <section id="clima" class="weather-section py-5 bg-light-green">
-            <div class="paper-rip-top"></div>
-            <div class="container text-center reveal">
-                <h2 class="section-title">Clima en Temixco</h2>
-                <p class="mt-3 mb-4 text-muted">Acompaña a los novios en su gran día. Consulta el clima para Temixco, Morelos.</p>
-                <div class="weather-container mt-4">
-                    <iframe 
-                        class="windy-widget"
-                        src="https://embed.windy.com/embed2.html?lat=18.852&lon=-99.224&zoom=11&level=surface&overlay=wind&menu=true&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1" 
-                        frameborder="0"
-                        loading="lazy"
-                        title="Clima en Temixco">
-                    </iframe>
+        <!-- SECCIÓN: MÁS POSIBILIDADES -->
+        <section id="mas-posibilidades" class="possibilities-section py-5 bg-light-green section-fold">
+             <div class="paper-rip-top"></div>
+             <div class="container text-center reveal">
+                <h2 class="section-title">Aún hay más secciones y posibilidades</h2>
+                <div class="possibilities-content mt-4">
+                    <p class="mb-3">¿Qué hay más secciones que se pueden agregar? Como un sketchup completo del evento en un timeline lineal, fotografías, vídeos o material que los festejados gustan compartir. El diseño es personalizado donde el usuario puede elegir colores, diseño, y agregar alguna funcionalidad que desee.</p>
+                    <p class="mb-3">También se puede agregar una tarjeta de Invitación Física con tecnología NFC dentro de un hermoso sobre como recuerdo. Opcionalmente, entregar a cada invitado un sobre igual de los anfitriones con una tarjeta personalizada.</p>
+                    <p>Esta invitación <strong>no tiene fecha de caducidad</strong>, permanecerá en línea por tiempo indefinido sin que tengas que pagar almacenamiento extra con un álbum digital donde se guardan todas las fotos que tus invitados subieron.</p>
                 </div>
-            </div>
-            <div class="paper-rip-bottom"></div>
+             </div>
+             <div class="paper-rip-bottom"></div>
         </section>
 
         <!-- SECCIÓN 7: ASISTENCIA (RSVP) -->

@@ -48,7 +48,7 @@ const handleEnvelopeClick = () => {
                 bgMusic.play().then(() => {
                     audioBtn.classList.add('playing');
                     if (bgMusicVideo) {
-                        bgMusicVideo.currentTime = 0;
+                        // Removed bgMusicVideo.currentTime = 0; to allow video to continue its loop
                         bgMusicVideo.play();
                     }
                 }).catch(e => console.log('Audio autoplay blocked:', e));
@@ -147,24 +147,6 @@ function startGuidedTour() {
                 }
             },
             {
-                element: '#clima',
-                popover: {
-                    title: 'Consultar el clima',
-                    description: '<b>Interactúa con el mapa</b> para ver el pronóstico en tiempo real y prepararte para el evento.',
-                    side: "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#itinerario',
-                popover: {
-                    title: 'Minuto a Minuto',
-                    description: 'No te pierdas ningún momento especial. Aquí podrás ver el horario detallado de cada actividad.',
-                    side: "top",
-                    align: 'center'
-                }
-            },
-            {
                 element: '#ubicacion',
                 popover: {
                     title: 'Dónde y Cuándo',
@@ -178,15 +160,6 @@ function startGuidedTour() {
                 popover: {
                     title: 'Ubica tu Mesa',
                     description: 'Este botón te llevará a un modelo 3D de la locación que te permitirá ubicar tu mesa y cada área destinada para cada momento.',
-                    side: "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#menus',
-                popover: {
-                    title: 'Menús Desplegables',
-                    description: '<b>Toca los botones</b> para alternar entre el menú del banquete y nuestra selección de bebidas y coctelería.',
                     side: "top",
                     align: 'center'
                 }
@@ -219,19 +192,10 @@ function startGuidedTour() {
                 }
             },
             {
-                element: '#hospedaje',
-                popover: {
-                    title: 'Hospedaje Sugerido',
-                    description: 'Hemos seleccionado algunas opciones cercanas para que tu estancia sea placentera. ¡Recuerda reservar con tiempo!',
-                    side: "top",
-                    align: 'center'
-                }
-            },
-            {
                 element: '#fotos',
                 popover: {
                     title: 'Comparte tu Foto',
-                    description: 'Este álbum es dinámico. Las fotos que se tomen en el evento se mostrarán automáticamente tanto en la invitación como en una pantalla el día del evento.',
+                    description: 'Este álbum es dinámico. Las fotos que se tomen en el evento se mostrarán automáticamente tanto en la invitación como en una pantalla el día del evento, así todos podrán compartir en el momento los highlights más importantes de esta celebración.',
                     side: "top",
                     align: 'center'
                 }
@@ -240,7 +204,7 @@ function startGuidedTour() {
                 element: '#btn-share-qr',
                 popover: {
                     title: 'Compartir QR',
-                    description: 'Permite que otros invitados colaboren subiendo sus fotos escaneando este código.',
+                    description: 'Al presionarlo el usuario puede compartir el código QR con todos los invitados (o los que guste) para que puedan colaborar subiendo sus fotos y haciendo más dinámica y divertida esta noche.',
                     side: "top",
                     align: 'center'
                 }
@@ -248,16 +212,32 @@ function startGuidedTour() {
             {
                 element: '#rsvp',
                 popover: {
-                    title: 'Confirma tu Asistencia',
-                    description: 'El paso más importante: <b>Haz clic en el botón</b> para asegurar tu lugar. ¡Esperamos contar contigo!',
+                    title: 'Por Favor, Confirma tu Asistencia',
+                    description: 'El paso más importante: <b>Haz clic en el botón de confirmación</b> para asegurar tu lugar. ¡Esperamos contar contigo!',
                     side: "top",
                     align: 'center'
                 }
             },
             {
                 popover: {
+                    title: 'Aún hay más secciones y posibilidades',
+                    description: '¿Qué hay más secciones que se pueden agregar? Como un sketchup completo del evento en un timeline lineal, fotografías, vídeos o material que los festejados gustan compartir. El diseño es personalizado donde el usuario puede elegir colores, diseño, y agregar alguna funcionalidad que desee.',
+                    side: "center",
+                    align: 'center'
+                }
+            },
+            {
+                popover: {
+                    title: 'Invitación Física Opcional',
+                    description: 'También se puede agregar una tarjeta de Invitación Física con tecnología NFC dentro de un hermoso sobre como recuerdo. Opcionalmente, entregar a cada invitado un sobre igual de los anfitriones con una tarjeta personalizada.',
+                    side: "center",
+                    align: 'center'
+                }
+            },
+            {
+                popover: {
                     title: '¡Grandes Noticias!',
-                    description: 'Esta invitación <b>no tiene fecha de caducidad</b> y permanecerá en línea con todas tus fotos y recuerdos.',
+                    description: 'Esta invitación <b>no tiene fecha de caducidad</b>, permanecerá en línea por tiempo indefinido sin que tengas que pagar almacenamiento extra con un álbum digital donde se guardan todas las fotos que tus invitados subieron.',
                     side: "center",
                     align: 'center'
                 }
@@ -792,37 +772,3 @@ window.addEventListener('scroll', () => {
         section.style.backgroundPosition = `${50 + (xPos * 0.2)}% 50%`;
     });
 });
-
-// TIMELINE ANIMATION (IntersectionObserver)
-const timelineItems = document.querySelectorAll('.timeline-item');
-const timelineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, { threshold: 0.5 });
-
-timelineItems.forEach(item => timelineObserver.observe(item));
-
-// MENU TOGGLE LOGIC
-const btnFoods = document.getElementById('btn-menu-foods');
-const btnDrinks = document.getElementById('btn-menu-drinks');
-const menuFoods = document.getElementById('menu-foods');
-const menuDrinks = document.getElementById('menu-drinks');
-
-if (btnFoods && btnDrinks) {
-    btnFoods.addEventListener('click', () => {
-        btnFoods.classList.add('active');
-        btnDrinks.classList.remove('active');
-        menuFoods.classList.add('active');
-        menuDrinks.classList.remove('active');
-    });
-
-    btnDrinks.addEventListener('click', () => {
-        btnDrinks.classList.add('active');
-        btnFoods.classList.remove('active');
-        menuDrinks.classList.add('active');
-        menuFoods.classList.remove('active');
-    });
-}
