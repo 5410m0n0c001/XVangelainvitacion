@@ -2009,6 +2009,19 @@ section {
     backdrop-filter: blur(10px);
 }
 
+@media (max-width: 768px) {
+    .custom-driver-popover {
+        max-width: 300px !important;
+        padding: 15px !important;
+    }
+    .custom-driver-popover .driver-popover-title {
+        font-size: 1.2rem !important;
+    }
+    .custom-driver-popover .driver-popover-description {
+        font-size: 0.85rem !important;
+    }
+}
+
 .custom-driver-popover .driver-popover-title {
     font-family: var(--font-head) !important;
     color: var(--primary-color) !important;

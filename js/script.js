@@ -83,6 +83,9 @@ function startGuidedTour() {
         allowClose: true,
         animate: true,
         popoverClass: 'custom-driver-popover',
+        stagePadding: 5,
+        popoverOffset: 15,
+        scrollIntoViewOptions: { behavior: 'smooth', block: 'center' },
         onHighlightStarted: (element) => {
             // Auto-play music when tour starts if not playing
             if (bgMusic && bgMusic.paused) {
