@@ -33,6 +33,10 @@
     <meta name="twitter:image" content="https://5410m0n0c001.github.io/invitacion-demo/sobre.png">
 </head>
 <body>
+    
+    <!-- Fixed Page Corners Decoration -->
+    <img src="esquina1.png" alt="" class="page-corner page-corner-tl">
+    <img src="esquina2.png" alt="" class="page-corner page-corner-br">
 
     <!-- SOBRE DE CARTA - Pantalla de entrada -->
     <div class="envelope-screen" id="envelope-screen">
@@ -102,18 +106,21 @@
             </div>
 
             <div class="hero-content text-center reveal">
-                <p class="subtitle mt-3 text-reveal"><span class="typing-container">MIS XV AÑOS</span></p>
-                <h1 class="names text-reveal"><span class="typing-container">Angela Alegría Becerra</span></h1>
-                <p class="date-txt text-reveal"><span class="typing-container">Te invito a celebrar conmigo este sueño</span></p>
+                <p class="subtitle mt-3"><span id="type-line-1" class="typing-container"></span></p>
+                <h1 class="names"><span id="type-line-2" class="typing-container"></span></h1>
+                <p class="date-txt"><span id="type-line-3" class="typing-container"></span></p>
                 
-                <div class="date-highlight mt-2 reveal">
-                    <span class="day">18</span>
-                    <span class="month-year">Julio<br>2026</span>
+                <div class="date-highlight mt-4 mb-3" id="type-date-container" style="opacity: 0; min-height: 60px; display: flex; align-items: center; justify-content: center;">
+                    <span id="type-line-4" class="typing-container" style="font-size: 1.8rem; font-family: var(--font-head); color: var(--primary-color);"></span>
                 </div>
             </div>
             
             <div class="paper-texture-bottom"></div>
         </section>
+
+        <!-- Fixed Page Corners -->
+        <img src="esquina1.png" alt="" class="page-corner page-corner-tl">
+        <img src="esquina2.png" alt="" class="page-corner page-corner-br">
 
         <!-- SECCIÓN 2: CUENTA REGRESIVA -->
         <section id="fecha" class="countdown-section py-5">

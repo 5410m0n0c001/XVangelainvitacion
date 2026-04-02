@@ -61,6 +61,9 @@ const handleEnvelopeClick = () => {
                 // Start Sakura petals
                 initSakura();
 
+                // Start Typing
+                startHeroTyping();
+
                 // Start Guided Tour after card is visible
                 startGuidedTour();
             }, 1600);
@@ -423,6 +426,51 @@ function createPetal(container) {
     
     petal.addEventListener('animationiteration', () => {
         petal.style.left = Math.random() * 100 + '%';
+    });
+}
+
+// HERO TYPING ANIMATION
+async function startHeroTyping() {
+    const line1 = "MIS XV AÑOS";
+    const line2 = "Angela Alegría Becerra";
+    const line3 = "Te invito a celebrar conmigo este sueño";
+    const line4 = "18 Julio 2026";
+
+    await typeWriter("type-line-1", line1, 100);
+    await typeWriter("type-line-2", line2, 80);
+    await typeWriter("type-line-3", line3, 50);
+    
+    // Show and type the date
+    const dateContainer = document.getElementById('type-date-container');
+    if (dateContainer) {
+        dateContainer.style.opacity = "1";
+        dateContainer.classList.add('reveal');
+    }
+    await typeWriter("type-line-4", line4, 100);
+}
+
+function typeWriter(elementId, text, speed) {
+    return new Promise((resolve) => {
+        const element = document.getElementById(elementId);
+        if (!element) return resolve();
+        
+        // Add cursor
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        element.parentNode.appendChild(cursor);
+
+        let i = 0;
+        const timer = setInterval(() => {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(timer);
+                // Remove cursor after typing is done
+                if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+                setTimeout(resolve, 500); // Wait bit before next line
+            }
+        }, speed);
     });
 }
 // Sound loop counter
