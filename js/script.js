@@ -61,251 +61,17 @@ const handleEnvelopeClick = () => {
                 // Start Sakura petals
                 initSakura();
 
+                // Start Butterflies
+                initButterflies();
+
                 // Start Typing
                 startHeroTyping();
-
-                // Start Guided Tour after card is visible
-                startGuidedTour();
             }, 1600);
         };
     }
 };
 
-// GUIDED TOUR LOGIC (Driver.js)
-function startGuidedTour() {
-    // Check if Driver.js is loaded
-    if (!window.driver || !window.driver.js) return;
-    
-    const driver = window.driver.js.driver;
-    
-    // Check if tour was already shown (optional, usually you only want to show it once per user)
-    // if (localStorage.getItem('tourCompleted') === 'true') return;
 
-    const driverObj = driver({
-        showProgress: true,
-        nextBtnText: 'Siguiente ➔',
-        prevBtnText: '⬅ Anterior',
-        doneBtnText: '¡Comenzar!',
-        allowClose: true,
-        animate: true,
-        popoverClass: 'custom-driver-popover',
-        stagePadding: 5,
-        popoverOffset: 15,
-        scrollIntoViewOptions: { behavior: 'smooth', block: 'center' },
-        onHighlightStarted: (element) => {
-            // Auto-play music when tour starts if not playing
-            if (bgMusic && bgMusic.paused) {
-                bgMusic.play().then(() => {
-                    if (audioBtn) audioBtn.classList.add('playing');
-                    if (bgMusicVideo) bgMusicVideo.play();
-                }).catch(e => console.log("Audio auto-play blocked:", e));
-            }
-        },
-        steps: [
-            {
-                popover: {
-                    title: '¡Bienvenida a mis XV Años!',
-                    description: 'Esta invitación es interactiva. Te guiaré rápidamente para que no te pierdas ningún detalle de mi gran día. <br><br><i>Puedes saltar este paso en cualquier momento tocando la "X" o "¡Comenzar!".</i>',
-                    side: "center",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#hero',
-                popover: {
-                    title: 'Portada',
-                    description: 'Aquí encontrarás mi nombre y la fecha de la celebración.',
-                    side: "bottom",
-                    align: 'center'
-                }
-            },
-            {
-                element: '.floating-nav',
-                popover: {
-                    title: 'Navegación Rápida',
-                    description: '<b>Toca aquí</b> en cualquier momento para saltar directamente a la sección que te interese (Ubicación, Regalos, Fotos, etc.) sin tener que deslizar.',
-                    side: "left",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#audio-btn',
-                popover: {
-                    title: 'Música de Fondo',
-                    description: '<b>Toca aquí</b> si deseas pausar o reanudar la música que preparamos para ti.',
-                    side: "left",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#share-btn-sticky',
-                popover: {
-                    title: 'Compartir',
-                    description: '<b>Toca aquí</b> para compartir esta invitación con tus familiares o amigos fácilmente por WhatsApp u otros medios.',
-                    side: "left",
-                    align: 'center'
-                }
-            },
-            {
-                element: '.countdown-container',
-                popover: {
-                    title: 'Contador Regresivo',
-                    description: 'Falta muy poco para que llegue el gran momento de celebrar juntos.',
-                    side: "left",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#fecha',
-                popover: {
-                    title: 'Calendario',
-                    description: '<b>Toca el botón</b> para agendar el evento directamente en tu calendario.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#calendar-btn',
-                popover: {
-                    title: 'Agendar Día',
-                    description: '<b>Toca este botón</b> para añadir el evento automáticamente a tu calendario y así no olvides acompañarnos.',
-                    side: window.innerWidth < 768 ? "bottom" : "right",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#clima',
-                popover: {
-                    title: 'Pronóstico del Tiempo',
-                    description: 'Haz clic en el botón para ver el <b>mapa interactivo de Windy</b> en pantalla completa y conocer el pronóstico exacto.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#itinerario',
-                popover: {
-                    title: 'Minuto a Minuto',
-                    description: 'No te pierdas ningún momento especial. Aquí podrás ver el horario detallado de cada actividad.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#ubicacion',
-                popover: {
-                    title: 'Dónde y Cuándo',
-                    description: '¡No te pierdas de nada! <b>Toca los botones de mapas</b> para abrir la ruta exacta hacia la ceremonia y recepción.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'start'
-                }
-            },
-            {
-                element: 'a[href="mapa.html"]',
-                popover: {
-                    title: 'Ubica tu Mesa',
-                    description: 'Este botón te llevará a un modelo 3D de la locación que te permitirá ubicar tu mesa y cada área destinada para cada momento.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#menus',
-                popover: {
-                    title: 'Menús Desplegables',
-                    description: '<b>Toca los botones</b> para alternar entre el menú del banquete y nuestra selección de bebidas y coctelería.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#codigo-vestimenta',
-                popover: {
-                    title: 'Código de Vestimenta',
-                    description: 'Aquí te sugerimos la paleta de colores. Te agradecemos seguirla para que la armonía del evento sea perfecta.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#padrinos',
-                popover: {
-                    title: 'Padrinos',
-                    description: 'Donde van a poder dar las gracias a los patrocinadores de tu evento o a los padrinos por acompañarlos.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#mesa-regalos',
-                popover: {
-                    title: 'Mesa de Regalos',
-                    description: 'Si gustas tener un detalle, aquí encuentras opciones. <b>Toca el botón "Copiar N° Cuenta"</b>, o los logos de las tiendas departamentales.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#hospedaje',
-                popover: {
-                    title: 'Hospedaje Sugerido',
-                    description: 'Hemos seleccionado algunas opciones cercanas para que tu estancia sea placentera. ¡Recuerda reservar con tiempo!',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#fotos',
-                popover: {
-                    title: 'Comparte tu Foto',
-                    description: 'Este álbum es dinámico. Las fotos que se tomen en el evento se mostrarán automáticamente tanto en la invitación como en una pantalla el día del evento.',
-                    side: window.innerWidth < 768 ? "bottom" : "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#btn-share-qr',
-                popover: {
-                    title: 'Compartir QR',
-                    description: 'Permite que otros invitados colaboren subiendo sus fotos escaneando este código.',
-                    side: "top",
-                    align: 'center'
-                }
-            },
-            {
-                element: '#rsvp',
-                popover: {
-                    title: 'Confirma tu Asistencia',
-                    description: 'El paso más importante: <b>Haz clic en el botón</b> para asegurar tu lugar. ¡Esperamos contar contigo!',
-                    side: "top",
-                    align: 'center'
-                }
-            },
-            {
-                popover: {
-                    title: '¡Grandes Noticias!',
-                    description: 'Esta invitación <b>no tiene fecha de caducidad</b> y permanecerá en línea con todas tus fotos y recuerdos.',
-                    side: "center",
-                    align: 'center'
-                }
-            }
-        ],
-        onDestroyStarted: () => {
-            // Se usa setTimeout para evitar bloqueos si Driver.js está procesando
-            setTimeout(() => {
-                if (!driverObj.hasNextStep() || confirm("¿Estás listo para explorar la invitación por ti mismo?")) {
-                    driverObj.destroy();
-                    // localStorage.setItem('tourCompleted', 'true');
-                }
-            }, 0);
-        },
-    });
-
-    // Pequeño retardo para asegurar que la UI se pintó completamente
-    setTimeout(() => {
-        driverObj.drive();
-    }, 500);
-}
 
 if (envelopeScreen) {
     envelopeScreen.addEventListener('click', handleEnvelopeClick);
@@ -316,7 +82,7 @@ if (envelopeScreen) {
 }
 
 // SCROLL REVEAL & ANIMATIONS UNIFIED
-const revealElements = document.querySelectorAll('.reveal, .card-flip-up, .scale-pulse, .text-reveal, .slide-in-left, .slide-in-right, .btn-zoom-pulse, .typing-container');
+const revealElements = document.querySelectorAll('.reveal, .card-flip-up, .scale-pulse, .text-reveal, .slide-in-left, .slide-in-right, .btn-zoom-pulse, .typing-container, .timeline-item');
 
 const revealCallback = (entries, observer) => {
     entries.forEach(entry => {
@@ -370,8 +136,18 @@ revealElements.forEach(el => {
     revealObserver.observe(el);
 });
 
+// SCROLL HANDLER: Toggle body class for conditional styling (e.g., laterals)
+window.addEventListener('scroll', () => {
+    const heroHeight = document.getElementById('hero')?.offsetHeight || window.innerHeight;
+    if (window.scrollY > heroHeight * 0.8) {
+        document.body.classList.add('scrolled');
+    } else {
+        document.body.classList.remove('scrolled');
+    }
+});
+
 // COUNTDOWN TIMER (Live mode targeting July 18, 2026)
-const targetDate = new Date("July 18, 2026 15:00:00").getTime();
+const targetDate = new Date("2026-07-18T14:30:00").getTime();
 const countdownContainer = document.querySelector('.countdown-container');
 const celebrationSound = document.getElementById('celebration-sound');
 const balloonsContainer = document.getElementById('balloons-container');
@@ -431,22 +207,59 @@ function createPetal(container) {
 
 // HERO TYPING ANIMATION
 async function startHeroTyping() {
-    const line1 = "MIS XV AÑOS";
-    const line2 = "Angela Alegría Becerra";
-    const line3 = "Te invito a celebrar conmigo este sueño";
-    const line4 = "18 Julio 2026";
+    const line1 = "quince años de";
+    // We don't type the names anymore because they have complex HTML/CSS styling
+    // But we can fade them in
+    const namesEl = document.querySelector('.names');
+    if (namesEl) {
+        namesEl.style.opacity = "0";
+        namesEl.style.transition = "opacity 2s ease";
+    }
 
     await typeWriter("type-line-1", line1, 100);
-    await typeWriter("type-line-2", line2, 80);
-    await typeWriter("type-line-3", line3, 50);
     
-    // Show and type the date
-    const dateContainer = document.getElementById('type-date-container');
-    if (dateContainer) {
-        dateContainer.style.opacity = "1";
-        dateContainer.classList.add('reveal');
+    if (namesEl) {
+        namesEl.style.opacity = "1";
     }
-    await typeWriter("type-line-4", line4, 100);
+}
+
+/* BUTTERFLIES LOGIC (Randomized & Natural) */
+function initButterflies() {
+    const container = document.getElementById('butterflies-container');
+    if (!container) return;
+
+    // Initial batch
+    for (let i = 0; i < 4; i++) {
+        setTimeout(() => createButterfly(container), i * 3000);
+    }
+    
+    // Continuous spawn
+    setInterval(() => createButterfly(container), 8000);
+}
+
+function createButterfly(container) {
+    const butterfly = document.createElement('img');
+    butterfly.src = 'mariposa.png';
+    butterfly.className = 'butterfly';
+    
+    const startX = Math.random() * 100;
+    const duration = 15 + Math.random() * 10; // Slightly slower for elegance
+    const translateX = (Math.random() - 0.5) * 500;
+    const rotate = (Math.random() - 0.5) * 120;
+    const size = 15 + Math.random() * 20; // Varied sizes
+    const opacity = 0.5 + Math.random() * 0.4; // Varied transparency
+
+    butterfly.style.left = startX + '%';
+    butterfly.style.bottom = '-50px'; 
+    butterfly.style.width = size + 'px';
+    butterfly.style.opacity = opacity;
+    butterfly.style.setProperty('--translateX', translateX + 'px');
+    butterfly.style.setProperty('--rotate', rotate + 'deg');
+    butterfly.style.animation = `flyUpward ${duration}s ease-in-out forwards, wingFlap 0.4s ease-in-out infinite`;
+
+    container.appendChild(butterfly);
+    
+    setTimeout(() => butterfly.remove(), duration * 1000);
 }
 
 function typeWriter(elementId, text, speed) {

@@ -16,9 +16,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
     
-    <!-- Driver.js CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
-    
     <!-- Meta tags SEO / Compartir -->
     <meta property="og:title" content="¡Mis XV Años! - Angela Alegría">
     <meta property="og:description" content="Te invito a celebrar conmigo este día tan especial.">
@@ -34,9 +31,18 @@
 </head>
 <body>
     
-    <!-- Fixed Page Corners Decoration -->
-    <img src="esquina1.png" alt="" class="page-corner page-corner-tl">
-    <img src="esquina2.png" alt="" class="page-corner page-corner-br">
+    <!-- Lateral Decorations -->
+    <div class="lateral-decoration lateral-left"></div>
+    <div class="lateral-decoration lateral-right"></div>
+    
+    <style>
+        .lateral-left { left: 0; }
+        .lateral-right { right: 0; transform: scaleX(-1); }
+        @media (max-width: 768px) { .lateral-decoration { width: 30px; opacity: 0.3; } }
+    </style>
+
+    <!-- Butterflies Container -->
+    <div id="butterflies-container"></div>
 
     <!-- SOBRE DE CARTA - Pantalla de entrada -->
     <div class="envelope-screen" id="envelope-screen">
@@ -58,7 +64,6 @@
             <li><a href="#padrinos" title="Padrinos"><i class='bx bx-group'></i></a></li>
             <li><a href="#mesa-regalos" title="Regalos"><i class='bx bx-gift'></i></a></li>
             <li><a href="#fotos" title="Fotos"><i class='bx bx-camera'></i></a></li>
-            <li><a href="#hospedaje" title="Hospedaje"><i class='bx bx-bed'></i></a></li>
             <li><a href="#rsvp" title="Asistencia"><i class='bx bx-check-double'></i></a></li>
         </ul>
     </nav>
@@ -93,13 +98,9 @@
         <!-- SECCIÓN 1: HERO / PORTADA -->
         <section id="hero" class="hero-section">
             <div class="paper-texture-top"></div>
-
-            <!-- Esquinas decorativas a nivel de sección -->
-            <img src="esquina1.png" alt="Decoración esquina" class="corner-img corner-top-left animate-corner-tl">
-            <img src="esquina2.png" alt="Decoración esquina" class="corner-img corner-bottom-right animate-corner-br">
             
             <div class="hero-video-container reveal">
-                <!-- Video de portada -->
+                <!-- Video de portada (muted for autoplay) -->
                 <video class="hero-video" autoplay loop muted playsinline>
                     <source src="portada.mp4" type="video/mp4">
                 </video>
@@ -107,23 +108,40 @@
 
             <div class="hero-content text-center reveal">
                 <p class="subtitle mt-3"><span id="type-line-1" class="typing-container"></span></p>
-                <h1 class="names"><span id="type-line-2" class="typing-container"></span></h1>
-                <p class="date-txt"><span id="type-line-3" class="typing-container"></span></p>
+                <h1 class="names">
+                    <span class="initial-enlarged">á</span>ngela 
+                    <span class="initial-enlarged">a</span>legría 
+                    <span class="initial-enlarged">b</span>ecerra
+                </h1>
+                <p class="date-txt">Te invito a celebrar conmigo este día tan especial</p>
                 
-                <div class="date-highlight mt-4 mb-3" id="type-date-container" style="opacity: 0; min-height: 60px; display: flex; align-items: center; justify-content: center;">
-                    <span id="type-line-4" class="typing-container" style="font-size: 1.8rem; font-family: var(--font-head); color: var(--primary-color);"></span>
+                <div class="date-highlight mt-4 mb-3">
+                    <div class="day-num" style="font-size: 3.5rem; font-family: var(--font-head); line-height: 1;">18</div>
+                    <div class="month-year" style="font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; text-align: left; line-height: 1.2; border-left: 2px solid var(--primary-color); padding-left: 15px;">
+                        Julio<br>2026
+                    </div>
                 </div>
             </div>
             
             <div class="paper-texture-bottom"></div>
+            
+            <!-- Hero Bottom Corners (Floral/Branches) -->
+            <div class="hero-bottom-corners">
+                <img src="esquina1.png" alt="" class="corner-left">
+                <img src="esquina2.png" alt="" class="corner-right">
+            </div>
         </section>
 
-        <!-- Fixed Page Corners -->
-        <img src="esquina1.png" alt="" class="page-corner page-corner-tl">
-        <img src="esquina2.png" alt="" class="page-corner page-corner-br">
+        <!-- Removed old body framing; now using section-specific framing -->
 
         <!-- SECCIÓN 2: CUENTA REGRESIVA -->
-        <section id="fecha" class="countdown-section py-5">
+        <section id="fecha" class="countdown-section py-5" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina1.png" alt="" class="section-corner corner-tl">
+                <img src="esquina2.png" alt="" class="section-corner corner-tr">
+                <img src="esquina1.png" alt="" class="section-corner corner-bl">
+                <img src="esquina2.png" alt="" class="section-corner corner-br">
+            </div>
             <div class="container text-center reveal">
                 <h2 class="section-title text-reveal">Faltan</h2>
                 <div class="countdown-container reveal">
@@ -162,7 +180,13 @@
         </section>
 
         <!-- SECCIÓN 3: UBICACIÓN -->
-        <section id="ubicacion" class="location-section py-5 bg-light-green">
+        <section id="ubicacion" class="location-section py-5 bg-light-green" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina2.png" alt="" class="section-corner corner-tl">
+                <img src="esquina1.png" alt="" class="section-corner corner-tr">
+                <img src="esquina2.png" alt="" class="section-corner corner-bl">
+                <img src="esquina1.png" alt="" class="section-corner corner-br">
+            </div>
             <div class="paper-rip-top"></div>
             <div class="container text-center reveal">
                 <h2 class="section-title text-reveal">Dónde y Cuándo</h2>
@@ -171,20 +195,23 @@
                     <div class="card event-card card-flip-up slide-in-right">
                         <div class="card-icon"><i class='bx bx-party'></i></div>
                         <h3 class="text-reveal">Recepción</h3>
-                        <p class="time text-reveal">15:00 a 01:00 HRS</p>
+                        <p class="time text-reveal">16:00 a 01:00 HRS</p>
                         <p class="place text-reveal">Jardín Villa Leona</p>
                         <p class="address text-reveal">C. San Luis 100, 62555 Jiutepec, Mor.</p>
                         
-                        <!-- Mapa Google Maps (Imagen ubica.png) -->
-                        <a href="https://maps.app.goo.gl/q9dAEyYGvqGTy2ja6?g_st=ac" target="_blank" class="location-btn-img reveal mt-4" style="text-decoration:none;">
-                            <img src="ubica.png" alt="Ver Ubicación" class="ubica-btn-img zoom-hover" style="max-width: 140px; height: auto; display: block; margin: 0 auto;">
-                            <span class="btn-legend">Toca para ver dirección</span>
-                        </a>
-
-                        <!-- Ubica tu mesa (mapa.html) -->
-                        <a href="mapa.html" class="btn-secondary btn-zoom-pulse mt-4 reveal" style="background: var(--primary-color); color: white; border: none; display: inline-flex; align-items: center; gap: 8px; padding: 10px 25px; border-radius: 30px;">
-                            <i class='bx bx-cube-alt'></i> Ubica tu mesa
-                        </a>
+                        <!-- Botones de Acción Claros -->
+                        <div class="location-actions mt-4">
+                            <!-- Mapa Google Maps -->
+                            <a href="https://maps.app.goo.gl/q9dAEyYGvqGTy2ja6?g_st=ac" target="_blank" class="location-btn-img reveal">
+                                <span class="btn-legend mb-2">Toca para ver dirección</span>
+                                <img src="ubica.png" alt="Ver Ubicación" class="zoom-hover">
+                            </a>
+    
+                            <!-- Ubica tu mesa -->
+                            <a href="mapa.html" class="btn-secondary btn-zoom-pulse reveal">
+                                <i class='bx bx-cube-alt'></i> Ubica tu mesa
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -192,7 +219,13 @@
         </section>
 
         <!-- SECCIÓN: ITINERARIO -->
-        <section id="itinerario" class="itinerario-section py-5">
+        <section id="itinerario" class="itinerario-section py-5" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina1.png" alt="" class="section-corner corner-tl">
+                <img src="esquina2.png" alt="" class="section-corner corner-tr">
+                <img src="esquina1.png" alt="" class="section-corner corner-bl">
+                <img src="esquina2.png" alt="" class="section-corner corner-br">
+            </div>
             <div class="container text-center reveal">
                 <h2 class="section-title">Minuto a Minuto</h2>
                 <p class="mt-3 mb-5 text-muted">Acompáñanos en cada momento especial de nuestro gran día.</p>
@@ -203,9 +236,9 @@
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
                             <i class='bx bx-church event-icon'></i>
-                            <span class="time-tag">16:00 HRS</span>
+                            <span class="time-tag">14:30 HRS</span>
                             <h3 class="event-title">Misa de Acción de Gracias</h3>
-                            <p class="event-desc">Parroquia de San Miguel Arcángel. Puntualidad recomendada.</p>
+                            <p class="event-desc">Ceremonia religiosa en el jardín. Puntualidad recomendada.</p>
                         </div>
                     </div>
 
@@ -214,9 +247,9 @@
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
                             <i class='bx bx-glass event-icon'></i>
-                            <span class="time-tag">17:30 HRS</span>
-                            <h3 class="event-title">Cóctel de Bienvenida</h3>
-                            <p class="event-desc">Recepción en Hacienda Santa Mónica con bebidas refrescantes.</p>
+                            <span class="time-tag">16:00 HRS</span>
+                            <h3 class="event-title">Horario del Evento</h3>
+                            <p class="event-desc">Recepción y brindis de bienvenida en Jardín Villa Leona.</p>
                         </div>
                     </div>
 
@@ -224,10 +257,10 @@
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <i class='bx bx-star event-icon'></i>
-                            <span class="time-tag">18:30 HRS</span>
-                            <h3 class="event-title">Entrada de la Quinceañera</h3>
-                            <p class="event-desc">Momento de recibir a Angela en su gran noche.</p>
+                            <i class='bx bx-restaurant event-icon'></i>
+                            <span class="time-tag">18:00 HRS</span>
+                            <h3 class="event-title">Banquete</h3>
+                            <p class="event-desc">Degustación de nuestro menú seleccionado.</p>
                         </div>
                     </div>
 
@@ -235,21 +268,10 @@
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <i class='bx bx-restaurant event-icon'></i>
-                            <span class="time-tag">19:30 HRS</span>
-                            <h3 class="event-title">Banquete</h3>
-                            <p class="event-desc">Degustación de nuestro menú seleccionado especialmente para ti.</p>
-                        </div>
-                    </div>
-
-                    <!-- Item 5 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <i class='bx bx-music event-icon'></i>
-                            <span class="time-tag">21:30 HRS</span>
-                            <h3 class="event-title">Vals & Fiesta</h3>
-                            <p class="event-desc">Apertura de la pista con el tradicional vals y mucha diversión.</p>
+                            <i class='bx bx-party event-icon'></i>
+                            <span class="time-tag">00:00 HRS</span>
+                            <h3 class="event-title">Fin del Evento</h3>
+                            <p class="event-desc">Agradecemos habernos acompañado en esta noche mágica.</p>
                         </div>
                     </div>
                 </div>
@@ -257,29 +279,33 @@
         </section>
 
         <!-- SECCIÓN 4: CÓDIGO DE VESTIMENTA -->
-        <section id="codigo-vestimenta" class="dresscode-section py-5">
+        <section id="codigo-vestimenta" class="dresscode-section py-5" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina2.png" alt="" class="section-corner corner-tl">
+                <img src="esquina1.png" alt="" class="section-corner corner-tr">
+                <img src="esquina2.png" alt="" class="section-corner corner-bl">
+                <img src="esquina1.png" alt="" class="section-corner corner-br">
+            </div>
             <div class="container text-center reveal">
                 <h2 class="section-title text-reveal">Código de Vestimenta</h2>
                 <div class="dresscode-icon animate-dresscode-icon slide-in-left">
                     <img src="icono.png" alt="Código de Vestimenta" class="dresscode-icon-img scale-pulse">
                 </div>
-                <h3 class="dresscode-type mt-2">Formal / Rigurosa Etiqueta</h3>
-                <p class="mt-2 text-muted">Agradecemos respetar nuestra paleta de colores reservando el rosa exclusivo para la quinceañera.</p>
+                <h3 class="dresscode-type mt-2">Formal (no etiqueta rigurosa)</h3>
+                <p class="mt-2 text-muted">Colores libres</p>
                 
-                <div class="color-palette mt-3 reveal">
-                    <div class="color-swatch text-reveal" style="background-color: #2F4F4F;"></div>
-                    <div class="color-swatch text-reveal" style="background-color: #000000;"></div>
-                    <div class="color-swatch text-reveal" style="background-color: #556B2F;"></div>
-                    <div class="color-swatch text-reveal" style="background-color: #BDB76B;"></div>
-                    <div class="color-swatch no-color text-reveal" style="background-color: #FFFFFF; border: 2px dashed #ff4d4d;">
-                        <span class="no-text text-danger"><i class='bx bx-x' ></i></span>
-                    </div>
-                </div>
+
             </div>
         </section>
 
         <!-- SECCIÓN 5: PADRINOS -->
-        <section id="padrinos" class="padrinos-section py-5 bg-light-green section-fold">
+        <section id="padrinos" class="padrinos-section py-5 bg-light-green section-fold" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina1.png" alt="" class="section-corner corner-tl">
+                <img src="esquina2.png" alt="" class="section-corner corner-tr">
+                <img src="esquina1.png" alt="" class="section-corner corner-bl">
+                <img src="esquina2.png" alt="" class="section-corner corner-br">
+            </div>
              <div class="paper-rip-top"></div>
              <div class="container text-center reveal-fold">
                 <h2 class="section-title">Padrinos</h2>
@@ -287,20 +313,16 @@
 
                 <div class="padrinos-grid">
                     <div class="padrino-item reveal sequence-1">
-                        <h4>De Velación</h4>
-                        <p>Sr. Arturo López<br>Sra. María Elena</p>
+                        <h4>Mami</h4>
+                        <p>Nancy Becerra Rodriguez</p>
                     </div>
                     <div class="padrino-item reveal sequence-2">
-                        <h4>De Lazo</h4>
-                        <p>Fernando Gómez<br>Laura Martínez</p>
+                        <h4>Abuelos</h4>
+                        <p>Juan Becerra Castañeda<br>Elia Rodriguez Suarez</p>
                     </div>
                     <div class="padrino-item reveal sequence-3">
-                        <h4>De Arras</h4>
-                        <p>Alejandro Fernández</p>
-                    </div>
-                    <div class="padrino-item reveal sequence-4">
-                        <h4>De Anillos</h4>
-                        <p>Sofia Cárdenas</p>
+                        <h4>Padrinos</h4>
+                        <p>Edimael Becerra Rodriguez<br>Guadalupe Becerra Rodriguez</p>
                     </div>
                 </div>
              </div>
@@ -308,7 +330,13 @@
         </section>
 
         <!-- SECCIÓN: MENÚS -->
-        <section id="menus" class="menus-section py-5">
+        <section id="menus" class="menus-section py-5" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina2.png" alt="" class="section-corner corner-tl">
+                <img src="esquina1.png" alt="" class="section-corner corner-tr">
+                <img src="esquina2.png" alt="" class="section-corner corner-bl">
+                <img src="esquina1.png" alt="" class="section-corner corner-br">
+            </div>
             <div class="container text-center reveal">
                 <h2 class="section-title">Nuestra Propuesta Gastronómica</h2>
                 <p class="mt-3 text-muted">Hemos seleccionado cada detalle para deleitar tu paladar.</p>
@@ -375,35 +403,16 @@
             </div>
         </section>
 
-        <!-- SECCIÓN: HOSPEDAJE SUGERIDO -->
-        <section id="hospedaje" class="hospedaje-section py-5 bg-light-green">
-            <div class="container text-center reveal">
-                <h2 class="section-title">Hospedaje Sugerido</h2>
-                <p class="mt-3 text-muted">Para tu mayor comodidad, te sugerimos estas opciones cercanas al evento.</p>
-                <p class="mb-4" style="font-size: 0.9rem; color: var(--primary-color);">* Por favor, consultar disponibilidad con previo tiempo.</p>
-                
-                <div class="padrinos-grid"> <!-- Reusing grid for consistent layout -->
-                    <div class="padrino-item">
-                        <i class='bx bx-hotel' style="font-size: 2rem; color: var(--accent-color);"></i>
-                        <h4 class="mt-2">Residencial Hacienda Real</h4>
-                        <p>A solo 5 min del salón. Ambiente familiar y amplios jardines.</p>
-                    </div>
-                    <div class="padrino-item">
-                        <i class='bx bx-buildings' style="font-size: 2rem; color: var(--accent-color);"></i>
-                        <h4 class="mt-2">Hotel Boutique Temixco</h4>
-                        <p>Opción elegante y moderna en el corazón de la zona.</p>
-                    </div>
-                    <div class="padrino-item">
-                        <i class='bx bxs-institution' style="font-size: 2rem; color: var(--accent-color);"></i>
-                        <h4 class="mt-2">Posada del Sol</h4>
-                        <p>Excelente relación calidad-precio y desayuno incluido.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- SECCIÓN 6: MESA DE REGALOS -->
-        <section id="mesa-regalos" class="gifts-section py-5 text-center">
+        <section id="mesa-regalos" class="gifts-section py-5 text-center" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina1.png" alt="" class="section-corner corner-tl">
+                <img src="esquina2.png" alt="" class="section-corner corner-tr">
+                <img src="esquina1.png" alt="" class="section-corner corner-bl">
+                <img src="esquina2.png" alt="" class="section-corner corner-br">
+            </div>
             <div class="container reveal">
                 <div class="icon-large mb-3 slide-in-right">
                     <img id="gift-icon-png" src="regalo.png" alt="Regalo" class="scale-pulse" style="width: 100px; height: auto; animation: pulseLogo 3s infinite;">
@@ -440,7 +449,13 @@
             </div>
         </section>
         <!-- SECCIÓN 7: COMPARTE TU FOTO -->
-        <section id="fotos" class="photos-section py-5 section-reveal">
+        <section id="fotos" class="photos-section py-5 section-reveal" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina1.png" alt="" class="section-corner corner-tl">
+                <img src="esquina2.png" alt="" class="section-corner corner-tr">
+                <img src="esquina1.png" alt="" class="section-corner corner-bl">
+                <img src="esquina2.png" alt="" class="section-corner corner-br">
+            </div>
             <div class="container text-center reveal">
                 <h2 class="section-title">Comparte tu Foto</h2>
                 <p class="mt-3 text-muted">¡Captura los mejores momentos y compártelos con nosotros!</p>
@@ -473,7 +488,13 @@
             </div>
         </section>
         <!-- SECCIÓN: CLIMA DEL EVENTO -->
-        <section id="clima" class="weather-section py-5 bg-light-green">
+        <section id="clima" class="weather-section py-5 bg-light-green" style="position: relative;">
+            <div class="section-corner-container">
+                <img src="esquina2.png" alt="" class="section-corner corner-tl">
+                <img src="esquina1.png" alt="" class="section-corner corner-tr">
+                <img src="esquina2.png" alt="" class="section-corner corner-bl">
+                <img src="esquina1.png" alt="" class="section-corner corner-br">
+            </div>
             <div class="paper-rip-top"></div>
             <div class="container text-center reveal">
                 <h2 class="section-title">Clima del Evento</h2>
@@ -493,29 +514,21 @@
         </section>
 
         <!-- SECCIÓN 7: ASISTENCIA (RSVP) -->
-        <section id="rsvp" class="rsvp-section footer-section py-5 bg-dark">
+        <section id="rsvp" class="rsvp-section footer-section py-5 bg-dark" style="position: relative; overflow: hidden;">
+            <div class="section-corner-container">
+                <img src="esquina2.png" alt="" class="section-corner corner-tl" style="opacity: 0.5;">
+                <img src="esquina1.png" alt="" class="section-corner corner-tr" style="opacity: 0.5;">
+                <img src="esquina2.png" alt="" class="section-corner corner-bl" style="opacity: 0.5;">
+                <img src="esquina1.png" alt="" class="section-corner corner-br" style="opacity: 0.5;">
+            </div>
             <div class="container text-center reveal text-white">
                 <h2 class="section-title title-light">Confirma tu Asistencia</h2>
-                <p class="mt-3 mb-4">Por favor envíanos un mensaje antes del 1° de Julio para confirmar tu lugar.</p>
-                        <div class="rsvp-btn-container mt-4 mb-4">
-                            <a href="https://primaveraeventsgroup.com/invitacion/" target="_blank" class="rsvp-custom-btn">
-                                <img src="confirma.png" alt="Confirmar Asistencia" class="rsvp-img-btn zoom-hover scale-pulse">
-                                <span class="btn-legend text-white">haz clic para Confirmar tu asistencia</span>
-                            </a>
-                        </div>
-                </div>
-
-                <div class="footer-names mt-5">
-                    <h3>Angela</h3>
-                    <p class="text-sm mt-2 text-muted-light">¡Te espero para celebrar mis XV!</p>
-                </div>
-
-                <div class="footer-coordination mt-5 pt-4" style="border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.95rem; background: rgba(0,0,0,0.45); padding: 25px 15px; border-radius: 20px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); margin: 0 10px;">
-                    <p class="mb-3" style="font-family: var(--font-accent); color: var(--accent-color); font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">Este evento fue coordinado o será coordinado por Primavera Events Group.</p>
-                    <a href="https://primaveraeventsgroup.com/" target="_blank" style="color: white; text-decoration: none; border-bottom: 2px solid var(--accent-color); padding-bottom: 4px; font-weight: 600; display: inline-block;">
-                        Si deseas conocer más acerca de Primavera Group haz clic en este enlace
-                    </a>
-                </div>
+                <p class="mt-3 mb-4">Por favor envíanos un mensaje antes de Mayo del 2026 para confirmar tu lugar.</p>
+                
+                <a href="https://primaveraeventsgroup.com/rsvp-angela/" target="_blank" class="rsvp-custom-btn reveal">
+                    <img src="confirma.png" alt="Confirmar Asistencia" class="rsvp-img-btn zoom-hover">
+                    <span class="rsvp-label">Haz clic para confirmar</span>
+                </a>
             </div>
         </section>
 
@@ -542,9 +555,6 @@
     
     <!-- QR Code Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    
-    <!-- Driver.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
     
     <!-- JS Scripts -->
     <script src="js/script.js"></script>
