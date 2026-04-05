@@ -572,74 +572,79 @@ body.ui-visible .floating-nav {
 
 /* HERO SECTION ======================================== */
 .hero-section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
     position: relative;
     padding: 0 !important;
     margin: 0 !important;
     overflow: hidden;
-    background: #000; /* Video will cover this */
-}
-
-@media (max-width: 768px) {
-    .hero-section {
-        min-height: 100vh !important; /* Force full screen height on mobile */
-    }
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hero-video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    min-width: 100vw;
-    min-height: 100vh;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    position: relative;
     overflow: hidden;
     z-index: 1;
-    border-radius: 0 !important;
+    background: #000;
+}
+
+@media (max-width: 768px) {
+    .hero-video-container {
+        aspect-ratio: 9 / 16; /* Mobile portrait video usually */
+    }
+    /* If the video is strictly 16:9 content, we should keep it 16:9 or use object-fit: contain */
 }
 
 .hero-video {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain; /* Full display, no cropping */
     object-position: center;
     transition: opacity 1.5s ease;
-    border-radius: 0 !important;
 }
 
 .hero-content {
-    background: rgba(255, 255, 255, 0.45); 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 30px;
-    border-radius: 40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    background: rgba(255, 255, 255, 0.65); /* More visible frosted glass */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 25px 40px;
+    border-radius: 35px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.1);
     z-index: 10;
-    width: 85%;
-    max-width: 500px;
-    margin: 10px;
-    margin-top: 55vh; /* Precisely lowered for the video layout */
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 80%;
+    max-width: 480px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
     text-align: center;
     transition: var(--transition);
-    animation: slideInUp 2s cubic-bezier(0.25, 1, 0.5, 1) both;
+    /* Choreographed slide-down anchor */
+    animation: slideDownAnchor 2.5s cubic-bezier(0.22, 1, 0.36, 1) 1s both;
 }
 
-@keyframes slideInUp {
-    0% { transform: translateY(40px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+.names {
+    color: var(--accent-color) !important;
+    font-weight: 700;
 }
 
-@media (max-width: 480px) {
+@keyframes slideDownAnchor {
+    0% { top: -20vh; opacity: 0; }
+    100% { top: 60%; opacity: 1; } /* Precise anchor below profile girl in 16:9 */
+}
+
+@media (max-width: 768px) {
     .hero-content {
-        margin-top: 55vh; /* Adjusted for mobile portrait */
-        padding: 25px 20px;
+        animation: slideDownAnchorMobile 2.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+    }
+    @keyframes slideDownAnchorMobile {
+        0% { top: -20vh; opacity: 0; }
+        100% { top: 58%; opacity: 1; }
     }
 }
 
@@ -673,20 +678,20 @@ body.ui-visible .floating-nav {
     max-width: 160px;
     height: auto;
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.08));
-    opacity: 0; /* Starts hidden for animation */
-    /* Composite animation: Fade in then Breeze */
-    animation: cornerFadeIn 1.5s ease-out forwards, breezeEffect 8s ease-in-out infinite 1.5s;
+    opacity: 0; 
+    transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
-@keyframes cornerFadeIn {
-    0% { opacity: 0; transform: scale(0.9); }
-    100% { opacity: 0.9; transform: scale(1); }
+/* Intersection Observer Class */
+.section-corner.reveal-corner {
+    opacity: 0.9;
 }
 
-.corner-tl { top: 0; left: 0; transform: none; }
-.corner-tr { top: 0; right: 0; transform: none; }
-.corner-bl { bottom: 0; left: 0; transform: none; }
-.corner-br { bottom: 0; right: 0; transform: none; }
+/* Orientation: Roses pointing towards lateral edges (OUTWARD) */
+.corner-tl { top: 0; left: 0; transform: scaleX(-1); } /* Flip to point left */
+.corner-tr { top: 0; right: 0; transform: none; } /* Points right naturally */
+.corner-bl { bottom: 0; left: 0; transform: scaleX(-1); } /* Flip to point left */
+.corner-br { bottom: 0; right: 0; transform: none; } /* Points right naturally */
 
 @media (max-width: 768px) {
     .section-corner { width: 22vw; }
@@ -753,16 +758,16 @@ body.scrolled .lateral-decoration {
     opacity: 0;
 }
 
-@keyframes flyUpward {
+@keyframes flyNatural {
     0% { transform: translate(0, 100vh) rotate(0deg) scale(0.5); opacity: 0; }
     10% { opacity: 0.8; }
     90% { opacity: 0.8; }
-    100% { transform: translate(var(--translateX), -100px) rotate(var(--rotate)) scale(1); opacity: 0; }
+    100% { transform: translate(var(--translateX), -120vh) rotate(var(--rotate)) scale(1.2); opacity: 0; }
 }
 
 @keyframes wingFlap {
     0%, 100% { transform: scaleX(1); }
-    50% { transform: scaleX(0.3); }
+    50% { transform: scaleX(0.2); }
 }
 
 /* BREEZE EFFECT for corners/laterals */
@@ -904,12 +909,20 @@ body.scrolled .lateral-decoration {
     filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
 }
 
-/* FOOTER ======================================== */
-.footer-credits {
-    font-size: 0.8rem;
-    color: var(--white);
-    opacity: 0.7;
-    margin-top: 50px;
+/* GIFTS SECTION ======================================== */
+.gifts-section {
+    position: relative;
+    z-index: 10; /* Ensure logos are above the decorative background */
+}
+
+.gifts-section .container {
+    position: relative;
+    z-index: 12;
+}
+
+.liverpool-logo, .palacio-logo {
+    z-index: 15;
+    position: relative;
 }
 
 .footer-names h3 {

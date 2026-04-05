@@ -228,34 +228,55 @@ function initButterflies() {
     const container = document.getElementById('butterflies-container');
     if (!container) return;
 
-    // Initial batch
-    for (let i = 0; i < 4; i++) {
-        setTimeout(() => createButterfly(container), i * 3000);
+    // Initial batch randomly distributed
+    for (let i = 0; i < 6; i++) {
+        setTimeout(() => createButterfly(container, true), i * 1500);
     }
     
-    // Continuous spawn
-    setInterval(() => createButterfly(container), 8000);
+    // Continuous random spawn
+    setInterval(() => createButterfly(container, false), 10000);
+
+    // Intersection Observer for Section Corners
+    const cornerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const corners = entry.target.querySelectorAll('.section-corner');
+                corners.forEach(c => c.classList.add('reveal-corner'));
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+        cornerObserver.observe(section);
+    });
 }
 
-function createButterfly(container) {
+function createButterfly(container, initial = false) {
     const butterfly = document.createElement('img');
     butterfly.src = 'mariposa.png';
     butterfly.className = 'butterfly';
     
-    const startX = Math.random() * 100;
-    const duration = 15 + Math.random() * 10; // Slightly slower for elegance
+    // Spawn across the whole screen width, including edges
+    const startX = Math.random() * 100; 
+    const startY = initial 
+        ? Math.random() * 100 
+        : -20; 
+        
+    const duration = 15 + Math.random() * 15; 
     const translateX = (Math.random() - 0.5) * 500;
-    const rotate = (Math.random() - 0.5) * 120;
-    const size = 15 + Math.random() * 20; // Varied sizes
-    const opacity = 0.5 + Math.random() * 0.4; // Varied transparency
+    const rotate = (Math.random() - 0.5) * 360; // More rotation freedom
+    const size = 12 + Math.random() * 15; 
+    const opacity = 0.35 + Math.random() * 0.4;
 
     butterfly.style.left = startX + '%';
-    butterfly.style.bottom = '-50px'; 
+    butterfly.style.top = initial ? startY + '%' : '110%'; 
     butterfly.style.width = size + 'px';
     butterfly.style.opacity = opacity;
     butterfly.style.setProperty('--translateX', translateX + 'px');
     butterfly.style.setProperty('--rotate', rotate + 'deg');
-    butterfly.style.animation = `flyUpward ${duration}s ease-in-out forwards, wingFlap 0.4s ease-in-out infinite`;
+    
+    // Smooth flying animation with flapping
+    butterfly.style.animation = `flyNatural ${duration}s ease-in-out forwards, wingFlap 0.6s ease-in-out infinite`;
 
     container.appendChild(butterfly);
     
