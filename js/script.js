@@ -207,19 +207,21 @@ function createPetal(container) {
 
 // HERO TYPING ANIMATION
 async function startHeroTyping() {
+    const nameText = "Ángela Alegría Becerra";
     const line1 = "quince años de";
-    // We don't type the names anymore because they have complex HTML/CSS styling
-    // But we can fade them in
-    const namesEl = document.querySelector('.names');
+    const line2 = "Te invito a celebrar conmigo este día tan especial";
+
+    const namesEl = document.querySelector('.names-cursive');
     if (namesEl) {
-        namesEl.style.opacity = "0";
-        namesEl.style.transition = "opacity 2s ease";
+        namesEl.style.opacity = "1"; // Ensure it's visible before typing
     }
 
-    await typeWriter("type-line-1", line1, 100);
-    
-    if (namesEl) {
-        namesEl.style.opacity = "1";
+    try {
+        await typeWriter("type-name", nameText, 60);
+        await typeWriter("type-line-1", line1, 50);
+        await typeWriter("type-line-2", line2, 40);
+    } catch (e) {
+        console.log("Typing animation interrupted or element missing", e);
     }
 }
 

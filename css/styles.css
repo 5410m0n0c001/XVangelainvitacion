@@ -16,12 +16,14 @@
 }
 
 /* RESET & BASE ======================================== */
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
 html, body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     overflow-x: hidden !important; /* Force no horizontal scroll */
-    width: 100vw; /* Exact viewport width */
+    width: 100%; /* Use 100% instead of 100vw to avoid scrollbar width bugs causing overflow */
     position: relative;
     max-width: 100%;
     -webkit-overflow-scrolling: touch; /* Smooth momentum scroll on iOS */
@@ -95,6 +97,12 @@ ul {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 45px; /* Keeps text fully inside the lateral.png borders on mobile */
+    }
 }
 
 .text-center { text-align: center; }
@@ -1898,13 +1906,16 @@ section {
 }
 
 @media (max-width: 768px) {
-    .timeline::before { left: 20px; }
-    .timeline-dot { left: 20px; }
+    .timeline::before { left: 10px; }
+    .timeline-dot { left: 10px; }
     .timeline-content { 
-        width: calc(100% - 60px); 
-        margin-left: 50px;
+        width: calc(100% - 30px); 
+        margin-left: 30px;
         text-align: left;
+        padding: 15px 20px; /* Scaled down padding for mobile so all text fits */
+        font-size: 0.9rem; /* Scaled text so timeline fits */
     }
+    .timeline-content h3 { font-size: 1.1rem; }
 }
 
 .timeline-item.active .timeline-dot {
