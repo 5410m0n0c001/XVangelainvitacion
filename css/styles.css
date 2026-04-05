@@ -610,13 +610,12 @@ body.ui-visible .floating-nav {
 
 @media (max-width: 768px) {
     .hero-video-container {
-        aspect-ratio: auto; /* Remove forced tall ratio */
-        width: 95%;
-        height: auto; /* Let the video dictate the height natively */
-        margin: 0 auto;
-        margin-top: 20px;
-        border-radius: 15px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        aspect-ratio: auto;
+        width: 100vw;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
         background: transparent;
     }
     .hero-video {
@@ -666,6 +665,7 @@ body.ui-visible .floating-nav {
     text-shadow: 0 1px 4px rgba(0,0,0,0.1);
     margin: 0;
     line-height: 1.2;
+    min-height: 1.2em; /* Ensures the container does not collapse on desktop while JS is typing */
 }
 
 @keyframes slideDownAnchor {
@@ -738,32 +738,44 @@ body.ui-visible .floating-nav {
     .section-corner { width: 22vw; }
 }
 
-/* DECORATIVE LATERALS ======================================== */
-.lateral-decoration {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 60px;
-    z-index: 999;
+/* DECORATIVE LATERALS (Bound to Section Corners explicitly) ======================================== */
+.section-corner-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
     pointer-events: none;
+    z-index: 10;
+}
+
+/* Lateral Vines bounded exactly to corners */
+.section-corner-container::before,
+.section-corner-container::after {
+    content: '';
+    position: absolute;
+    top: 80px; /* offset clear from top floral frame */
+    bottom: 80px; /* offset clear from bottom floral frame */
+    width: 60px;
     background-image: url('../lateral.png');
     background-repeat: repeat-y;
     background-size: 100% auto;
-    opacity: 0; /* Hidden by default (Hero) */
-    transition: opacity 1s ease;
+    opacity: 0.6;
     animation: breezeEffect 12s ease-in-out infinite;
+    pointer-events: none;
 }
 
-.lateral-left { left: 0; }
-.lateral-right { right: 0; transform: scaleX(-1); }
+.section-corner-container::before {
+    left: 0;
+}
+
+.section-corner-container::after {
+    right: 0;
+    transform: scaleX(-1);
+}
 
 @media (max-width: 768px) {
-    .lateral-decoration { width: 40px; }
-}
-
-/* Show laterals only when scrolled past Hero */
-body.scrolled .lateral-decoration {
-    opacity: 0.6;
+    .section-corner-container::before,
+    .section-corner-container::after {
+        display: none; /* Hide fully on mobile as per user discretion to prevent squeezing narrow screens */
+    }
 }
 
 /* BODY-LEVEL FRAMING CORNERS (Escuadras) */
