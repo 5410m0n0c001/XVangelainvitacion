@@ -417,10 +417,10 @@ body.ui-visible .floating-nav {
 
 @media (max-width: 768px) {
     .audio-btn {
-        width: 98px; /* ~50% of 195px */
-        height: 63px; /* ~50% of 126px */
-        top: 15px;
-        right: 15px;
+        width: 70px; /* Reduced to avoid competing with hero */
+        height: 45px; 
+        top: 50px; /* Lowered slightly */
+        right: 10px;
     }
     
     .share-icon-img {
@@ -633,9 +633,9 @@ body.ui-visible .floating-nav {
 }
 
 .hero-content {
-    background: rgba(255, 255, 255, 0.85); /* Stronger frosted glass (more white, less transparent) */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.4); /* Esmerilado Translucido */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 20px 30px;
     border-radius: 8px; /* Sharper edges as per standard luxury card styling */
     box-shadow: 0 15px 45px rgba(0,0,0,0.1);
@@ -687,9 +687,9 @@ body.ui-visible .floating-nav {
         transform-origin: center center;
     }
     @keyframes slideDownAnchorMobile {
-        0% { top: 30%; opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
-        /* Anchors exactly at the borderline between hero and countdown */
-        100% { top: 100%; opacity: 1; transform: translate(-50%, -50%) scale(0.85); }
+        0% { top: 30%; opacity: 0; transform: translate(-50%, -50%) scale(0.65); }
+        /* Anchors exactly at the borderline between hero and countdown with reduced size */
+        100% { top: 100%; opacity: 1; transform: translate(-50%, -50%) scale(0.65); }
     }
 }
 
