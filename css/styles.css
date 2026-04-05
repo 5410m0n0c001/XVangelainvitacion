@@ -203,7 +203,7 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #fff5f7; /* Soft blush to avoid green flash and match pink theme */
+    background: #000; /* Black background better suited for video containment letterboxing */
     z-index: 9999;
     display: flex;
     flex-direction: column;
@@ -222,7 +222,8 @@ ul {
 .envelope-video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background-color: #000;
     pointer-events: none;
     /* Removed opacity: 0 to show first frame immediately */
 }
@@ -253,10 +254,10 @@ ul {
         font-size: 0.9rem;
     }
     .envelope-video {
-        /* On mobile, ensure the video covers the vertical space */
         height: 100%;
         width: 100%;
-        object-fit: cover;
+        object-fit: contain; /* Full display without cropping */
+        background-color: #000;
     }
 }
 
