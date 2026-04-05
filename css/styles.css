@@ -609,11 +609,11 @@ body.ui-visible .floating-nav {
 }
 
 .hero-content {
-    background: rgba(255, 255, 255, 0.65); /* More visible frosted glass */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    padding: 25px 40px;
-    border-radius: 35px;
+    background: rgba(255, 255, 255, 0.85); /* Stronger frosted glass (more white, less transparent) */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 20px 30px;
+    border-radius: 8px; /* Sharper edges as per standard luxury card styling */
     box-shadow: 0 15px 45px rgba(0,0,0,0.1);
     z-index: 10;
     width: 80%;
@@ -633,17 +633,29 @@ body.ui-visible .floating-nav {
     font-weight: 700;
 }
 
+.names-cursive {
+    font-family: var(--font-head);
+    color: var(--accent-color) !important;
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 500;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    margin: 0;
+    line-height: 1.2;
+}
+
 @keyframes slideDownAnchor {
-    0% { top: -20vh; opacity: 0; }
-    100% { top: 60%; opacity: 1; } /* Precise anchor below profile girl in 16:9 */
+    0% { top: 30%; opacity: 0; }
+    100% { top: 58%; opacity: 1; } /* Precise anchor below profile girl */
 }
 
 @media (max-width: 768px) {
     .hero-content {
         animation: slideDownAnchorMobile 2.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+        width: 90%;
+        padding: 15px 20px;
     }
     @keyframes slideDownAnchorMobile {
-        0% { top: -20vh; opacity: 0; }
+        0% { top: 30%; opacity: 0; }
         100% { top: 58%; opacity: 1; }
     }
 }
@@ -687,11 +699,11 @@ body.ui-visible .floating-nav {
     opacity: 0.9;
 }
 
-/* Orientation: Roses pointing towards lateral edges (OUTWARD) */
-.corner-tl { top: 0; left: 0; transform: scaleX(-1); } /* Flip to point left */
-.corner-tr { top: 0; right: 0; transform: none; } /* Points right naturally */
-.corner-bl { bottom: 0; left: 0; transform: scaleX(-1); } /* Flip to point left */
-.corner-br { bottom: 0; right: 0; transform: none; } /* Points right naturally */
+/* Orientation: Roses pointing according to user-provided images (NO TRANSFORM needed) */
+.corner-tl { top: 0; left: 0; transform: none; }
+.corner-tr { top: 0; right: 0; transform: none; }
+.corner-bl { bottom: 0; left: 0; transform: none; }
+.corner-br { bottom: 0; right: 0; transform: none; }
 
 @media (max-width: 768px) {
     .section-corner { width: 22vw; }
