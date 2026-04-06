@@ -23,11 +23,6 @@ const handleEnvelopeClick = () => {
         // Hide hint
         if (envelopeHint) envelopeHint.style.display = 'none';
 
-        // Refresh buffers
-        envelopeVideo.load();
-        if (heroVideo) heroVideo.load();
-        if (bgMusicVideo) bgMusicVideo.load();
-        
         envelopeVideo.play().catch(e => console.log('Envelope play failed:', e));
         if (heroVideo) heroVideo.play().catch(e => console.log('Hero video sync-play failed:', e));
         
