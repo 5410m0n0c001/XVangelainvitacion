@@ -17,53 +17,12 @@ const handleEnvelopeClick = () => {
     if (isEnvelopeOpened) return;
     isEnvelopeOpened = true; 
 
-    // VISUAL PRIORITY: Immediately start envelope animation
-    if (envelopeVideo) {
-        envelopeVideo.play().catch(e => {
-            console.log('Envelope animation play failed, opening manually:', e);
-            openInvitation();
-        });
-
-        // Completion logic
-        envelopeVideo.onended = () => {
-            openInvitation();
-        };
-    } else {
-        openInvitation();
-    }
-
-    // AUDIO CONTEXT: Try to play music in parallel after animation starts
-    const bgMusic = document.getElementById('bg-music');
-    const audioBtn = document.getElementById('audio-btn');
-    const bgMusicVideo = document.getElementById('audio-btn-video');
-
-    if (bgMusic) {
-        // We trigger play() now that we have a user gesture context
-        bgMusic.play().then(() => {
-            if (audioBtn) audioBtn.classList.add('playing');
-            if (bgMusicVideo) bgMusicVideo.play().catch(e => console.log('Music video play failed:', e));
-        }).catch(err => {
-            console.log('Background music failed to trigger:', err);
-            // Don't interrupt visuals if audio is blocked
-        });
-    }
-
-    // Visual feedback: Hide hint immediately
-    if (envelopeHint) envelopeHint.style.display = 'none';
-
-    // FALLBACK: Emergency opening if video is stuck or fails (1.5s)
-    const emergencyTimeout = setTimeout(() => {
-        if (envelopeScreen && !envelopeScreen.classList.contains('hidden')) {
-            console.log('Emergency open triggered...');
-            openInvitation();
-        }
-    }, 1500);
-
+    // Define function BEFORE calling it (Fixes ReferenceError in mobile/safari)
     const openInvitation = () => {
         if (isEnvelopeOpened === 'fully_done') return;
         isEnvelopeOpened = 'fully_done';
         
-        clearTimeout(emergencyTimeout);
+        if (typeof emergencyTimeout !== 'undefined') clearTimeout(emergencyTimeout);
         if (envelopeScreen) {
             envelopeScreen.classList.add('hidden');
             
@@ -88,7 +47,47 @@ const handleEnvelopeClick = () => {
         // Final UI visibility check
         document.body.classList.add('ui-visible');
     };
+
+    // VISUAL PRIORITY: Immediately start envelope animation
+    if (envelopeVideo) {
+        envelopeVideo.play().catch(e => {
+            console.log('Envelope animation play failed, opening manually:', e);
+            openInvitation();
+        });
+
+        // Completion logic
+        envelopeVideo.onended = () => {
+            openInvitation();
+        };
+    } else {
+        openInvitation();
+    }
+
+    // AUDIO CONTEXT: Try to play music in parallel after animation starts
+    const bgMusic = document.getElementById('bg-music');
+    const audioBtn = document.getElementById('audio-btn');
+    const bgMusicVideo = document.getElementById('audio-btn-video');
+
+    if (bgMusic) {
+        bgMusic.play().then(() => {
+            if (audioBtn) audioBtn.classList.add('playing');
+            if (bgMusicVideo) bgMusicVideo.play().catch(e => console.log('Music video play failed:', e));
+        }).catch(err => {
+            console.log('Background music failed to trigger:', err);
+        });
+    }
+
+    // Visual feedback: Hide hint immediately
+    if (envelopeHint) envelopeHint.style.display = 'none';
+
+    // FALLBACK: Emergency opening if video is stuck or fails (1.5s)
+    const emergencyTimeout = setTimeout(() => {
+        if (envelopeScreen && !envelopeScreen.classList.contains('hidden')) {
+            openInvitation();
+        }
+    }, 1500);
 };
+
 
 if (envelopeScreen) {
     const handleInteraction = (e) => {
