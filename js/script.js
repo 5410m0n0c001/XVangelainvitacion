@@ -17,6 +17,9 @@ const handleEnvelopeClick = () => {
     if (isEnvelopeOpened) return;
     isEnvelopeOpened = true; 
 
+    // Capture hero video reference for gesture-locked playback
+    const heroVideo = document.getElementById('hero-video');
+
     // Define function BEFORE calling it (Fixes ReferenceError in mobile/safari)
     const openInvitation = () => {
         if (isEnvelopeOpened === 'fully_done') return;
@@ -26,6 +29,11 @@ const handleEnvelopeClick = () => {
         if (envelopeScreen) {
             envelopeScreen.classList.add('hidden');
             
+            // SAFETY: Re-trigger hero video when envelope fades (in case browser suspended it)
+            if (heroVideo && heroVideo.paused) {
+                heroVideo.play().catch(() => {});
+            }
+
             // Start secondary visuals after a slight delay to sync with fade
             setTimeout(() => {
                 envelopeScreen.style.display = 'none';
@@ -61,6 +69,11 @@ const handleEnvelopeClick = () => {
         };
     } else {
         openInvitation();
+    }
+
+    // HERO VIDEO: Explicitly play within user gesture to unlock on mobile
+    if (heroVideo) {
+        heroVideo.play().catch(() => {});
     }
 
     // AUDIO CONTEXT: Try to play music in parallel after animation starts
