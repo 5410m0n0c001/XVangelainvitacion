@@ -751,9 +751,10 @@ body.ui-visible .floating-nav {
     z-index: 10;
 }
 
-/* Lateral Vines bounded exactly to corners */
+/* Lateral Vines (lateral.png) - REMOVED PER USER REQUEST to eliminate desktop margins */
 .section-corner-container::before,
 .section-corner-container::after {
+    display: none; /* Hide on all devices to match the "perfect" mobile version */
     content: '';
     position: absolute;
     top: 80px; /* offset clear from top floral frame */
@@ -767,21 +768,8 @@ body.ui-visible .floating-nav {
     pointer-events: none;
 }
 
-.section-corner-container::before {
-    left: 0;
-}
 
-.section-corner-container::after {
-    right: 0;
-    transform: scaleX(-1);
-}
 
-@media (max-width: 768px) {
-    .section-corner-container::before,
-    .section-corner-container::after {
-        display: none; /* Hide fully on mobile as per user discretion to prevent squeezing narrow screens */
-    }
-}
 
 /* BODY-LEVEL FRAMING CORNERS (Escuadras) */
 .body-frame {
