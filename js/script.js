@@ -208,7 +208,6 @@ function createPetal(container) {
 // HERO TYPING ANIMATION
 async function startHeroTyping() {
     const nameText = "Ángela Alegría Becerra";
-    const line1 = "quince años de";
     const line2 = "Te invito a celebrar conmigo este día tan especial";
 
     const namesEl = document.querySelector('.names-cursive');
@@ -218,7 +217,6 @@ async function startHeroTyping() {
 
     try {
         await typeWriter("type-name", nameText, 60);
-        await typeWriter("type-line-1", line1, 50);
         await typeWriter("type-line-2", line2, 40);
     } catch (e) {
         console.log("Typing animation interrupted or element missing", e);

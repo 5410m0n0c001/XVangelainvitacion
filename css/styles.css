@@ -610,8 +610,7 @@ body.ui-visible .floating-nav {
 
 @media (max-width: 768px) {
     .hero-video-container {
-        aspect-ratio: auto;
-        min-height: 250px; /* CRITICAL: Prevents 0-height collapse on slow connections preventing iOS Safari from starting download */
+        aspect-ratio: 16 / 9; /* Perfectly matches video without leaving artificial background gaps, while preventing 0-height collapse */
         width: 100vw;
         max-width: 100%;
         margin: 0;
