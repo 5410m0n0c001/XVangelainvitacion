@@ -17,6 +17,26 @@ const handleEnvelopeClick = () => {
     if (isEnvelopeOpened) return;
     isEnvelopeOpened = true; 
 
+    const bgMusic = document.getElementById('bg-music');
+    const heroVideo = document.getElementById('hero-video');
+    const audioBtn = document.getElementById('audio-btn');
+    const bgMusicVideo = document.getElementById('audio-btn-video');
+
+    // CRITICAL: Synchronous gesture-locked playback starts here
+    // Try both Audio and Hero video immediately to capture the user interaction context
+    if (bgMusic) {
+        bgMusic.play().then(() => {
+            if (audioBtn) audioBtn.classList.add('playing');
+            if (bgMusicVideo) bgMusicVideo.play().catch(e => console.log('Music video play failed:', e));
+        }).catch(e => console.log('Bg music sync-play failed:', e));
+    }
+
+    if (heroVideo) {
+        // Force reset and play to overcome "reload" issues or suspended states
+        heroVideo.currentTime = 0; 
+        heroVideo.play().catch(e => console.log('Hero video sync-play failed:', e));
+    }
+
     // Visual feedback: Hide hint immediately
     if (envelopeHint) envelopeHint.style.display = 'none';
 
@@ -59,25 +79,11 @@ const handleEnvelopeClick = () => {
     };
 
     if (envelopeVideo) {
-        const heroVideo = document.getElementById('hero-video');
-        const bgMusic = document.getElementById('bg-music');
-        const audioBtn = document.getElementById('audio-btn');
-        const bgMusicVideo = document.getElementById('audio-btn-video');
-        
-        // SYNC: Play media simultaneously inside the click event
+        // Start envelope animation
         envelopeVideo.play().catch(e => {
             console.log('Envelope play failed, opening manually:', e);
             openInvitation();
         });
-        
-        if (heroVideo) heroVideo.play().catch(e => console.log('Hero video sync-play failed:', e));
-        
-        if (bgMusic) {
-            bgMusic.play().then(() => {
-                if (audioBtn) audioBtn.classList.add('playing');
-                if (bgMusicVideo) bgMusicVideo.play().catch(e => console.log('Music video play failed:', e));
-            }).catch(e => console.log('Bg music sync-play failed:', e));
-        }
 
         // When video ends normally, use the standard opening
         envelopeVideo.onended = () => {
@@ -88,6 +94,7 @@ const handleEnvelopeClick = () => {
         openInvitation();
     }
 };
+
 
 
 if (envelopeScreen) {
