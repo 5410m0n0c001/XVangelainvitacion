@@ -44,6 +44,12 @@ const handleEnvelopeClick = () => {
             // Show UI elements (Nav and Audio button)
             document.body.classList.add('ui-visible');
 
+            // Explicitly play hero video for GitHub Pages / Mobile compatibility
+            const heroVideo = document.getElementById('hero-video');
+            if (heroVideo) {
+                heroVideo.play().catch(e => console.log('Hero video autoplay blocked or failed:', e));
+            }
+
             if (bgMusic && audioBtn) {
                 bgMusic.play().then(() => {
                     audioBtn.classList.add('playing');
