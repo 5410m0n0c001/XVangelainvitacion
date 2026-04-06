@@ -23,14 +23,18 @@ const handleEnvelopeClick = () => {
         
         // MOBILE SYNC: Play all media SIMULTANEOUSLY inside the click event
         // This is the most robust way to ensure mobile browsers (Safari/Chrome) allow all playbacks.
-        envelopeVideo.play();
-        
         const heroVideo = document.getElementById('hero-video');
-        if (heroVideo) heroVideo.play().catch(e => console.log('Hero video sync-play failed:', e));
-        
         const bgMusic = document.getElementById('bg-music');
         const audioBtn = document.getElementById('audio-btn');
         const bgMusicVideo = document.getElementById('audio-btn-video');
+        
+        // Refresh buffers
+        envelopeVideo.load();
+        if (heroVideo) heroVideo.load();
+        if (bgMusicVideo) bgMusicVideo.load();
+        
+        envelopeVideo.play();
+        if (heroVideo) heroVideo.play().catch(e => console.log('Hero video sync-play failed:', e));
         
         if (bgMusic) {
             bgMusic.play().then(() => {
