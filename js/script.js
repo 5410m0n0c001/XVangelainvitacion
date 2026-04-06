@@ -11,29 +11,24 @@ if (envelopeVideo) {
 }
 
 const handleEnvelopeClick = () => {
-    if (envelopeVideo) {
-        // Prevent multiple clicks
-        if (!envelopeVideo.paused) return;
+    if (isEnvelopeOpened) return;
+    isEnvelopeOpened = true; 
 
-        // Hide hint
-        if (envelopeHint) envelopeHint.style.display = 'none';
-        
-        // Ensure video is at start and play
-        envelopeVideo.currentTime = 0;
-        
-        // MOBILE SYNC: Play all media SIMULTANEOUSLY inside the click event
-        // This is the most robust way to ensure mobile browsers (Safari/Chrome) allow all playbacks.
+    if (envelopeVideo) {
         const heroVideo = document.getElementById('hero-video');
         const bgMusic = document.getElementById('bg-music');
         const audioBtn = document.getElementById('audio-btn');
         const bgMusicVideo = document.getElementById('audio-btn-video');
         
+        // Hide hint
+        if (envelopeHint) envelopeHint.style.display = 'none';
+
         // Refresh buffers
         envelopeVideo.load();
         if (heroVideo) heroVideo.load();
         if (bgMusicVideo) bgMusicVideo.load();
         
-        envelopeVideo.play();
+        envelopeVideo.play().catch(e => console.log('Envelope play failed:', e));
         if (heroVideo) heroVideo.play().catch(e => console.log('Hero video sync-play failed:', e));
         
         if (bgMusic) {
@@ -83,11 +78,16 @@ const handleEnvelopeClick = () => {
 
 
 if (envelopeScreen) {
-    envelopeScreen.addEventListener('click', handleEnvelopeClick);
-    envelopeScreen.addEventListener('touchend', (e) => {
-        e.preventDefault();
+    const handleInteraction = (e) => {
+        // Prevent double fire (touchend followed by click)
+        if (e.type === 'touchend') {
+            e.preventDefault();
+        }
         handleEnvelopeClick();
-    }, { passive: false });
+    };
+
+    envelopeScreen.addEventListener('click', handleInteraction);
+    envelopeScreen.addEventListener('touchend', handleInteraction, { passive: false });
 }
 
 // SCROLL REVEAL & ANIMATIONS UNIFIED
