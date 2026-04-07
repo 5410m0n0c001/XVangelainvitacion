@@ -486,6 +486,10 @@ body.ui-visible .floating-nav {
     animation: cursorBlink 0.8s infinite;
 }
 
+.names-cursive .typing-container::after {
+    display: none;
+}
+
 /* SAKURA PETAL ANIMATION ======================================== */
 .sakura-container {
     position: fixed;
@@ -662,17 +666,15 @@ body.ui-visible .floating-nav {
 
 .names-cursive {
     font-family: 'Pinyon Script', cursive;
-    background: linear-gradient(135deg, #C5A059 0%, #E8C86A 40%, #F5D38A 50%, #E8C86A 60%, #C5A059 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    color: #B8913E;
+    font-size: clamp(1.3rem, 4.2vw, 3rem);
     font-weight: 400;
-    margin: 0;
-    line-height: 1.2;
+    margin: 0 auto;
+    line-height: 1.15;
     min-height: 1.2em;
-    white-space: nowrap;
-    filter: drop-shadow(0 2px 4px rgba(160, 120, 50, 0.3));
+    text-align: center;
+    -webkit-text-stroke: 0.3px #A07830;
+    text-shadow: 0 1px 3px rgba(140, 100, 30, 0.25);
 }
 
 @keyframes slideDownAnchor {
@@ -685,13 +687,15 @@ body.ui-visible .floating-nav {
     .hero-content {
         animation: slideDownAnchorMobile 2.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
         width: 85%;
-        padding: 5px 10px; /* Reduced internal padding for mobile scale */
-        position: absolute; /* Restore strict absolute positioning (superposition) */
+        padding: 5px 10px;
+        position: absolute;
         left: 50%;
         margin-top: 0;
-        /* Downscale and center over video natively */
         transform: translate(-50%, -50%) scale(0.85);
         transform-origin: center center;
+    }
+    .names-cursive {
+        font-size: 1.3rem;
     }
     @keyframes slideDownAnchorMobile {
         0% { top: 30%; opacity: 0; transform: translate(-50%, -50%) scale(0.65); }
@@ -911,9 +915,10 @@ body.ui-visible .floating-nav {
 .rsvp-custom-btn {
     position: relative;
     display: inline-block !important;
-    margin: 50px auto !important;
+    margin: 30px auto !important;
     text-align: center !important;
     cursor: pointer;
+    animation: imgPulse 2.5s ease-in-out infinite;
 }
 
 .rsvp-img-btn {
@@ -926,34 +931,34 @@ body.ui-visible .floating-nav {
 
 .rsvp-label {
     position: absolute;
-    top: -25px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    background: var(--accent-color);
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     color: white;
-    padding: 10px 25px;
+    padding: 10px 22px;
     border-radius: 25px;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 700;
     white-space: nowrap;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     pointer-events: none;
     z-index: 10;
-    animation: btnPulse 2s infinite;
 }
 
-@keyframes btnPulse {
-    0% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.08); box-shadow: 0 8px 25px rgba(197, 160, 89, 0.5); }
-    100% { transform: translateX(-50%) scale(1); }
+@keyframes imgPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 8px 25px rgba(197, 160, 89, 0.5)); }
 }
 
 /* Desktop reduction for rsvp */
 @media (min-width: 992px) {
     .rsvp-img-btn {
-        max-width: 180px !important; /* Elegant size */
+        max-width: 180px !important;
     }
 }
 
@@ -1068,10 +1073,13 @@ body.ui-visible .floating-nav {
     font-style: italic;
     font-family: var(--font-head);
     color: var(--text-light);
-    font-size: 1.1rem;
+    font-size: 0.7rem;
+    margin-top: 35px !important;
+    margin-bottom: 5px !important;
 }
 
 .date-highlight {
+    margin-top: 5px !important;
     display: flex;
     align-items: center;
     justify-content: center;
