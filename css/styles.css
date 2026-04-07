@@ -695,7 +695,7 @@ body.ui-visible .floating-nav {
         transform-origin: center center;
     }
     .names-cursive {
-        font-size: 1.55rem;
+        font-size: 2.2rem;
     }
     @keyframes slideDownAnchorMobile {
         0% { top: 30%; opacity: 0; transform: translate(-50%, -50%) scale(0.65); }
