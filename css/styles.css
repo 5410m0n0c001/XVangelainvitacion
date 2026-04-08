@@ -1382,6 +1382,71 @@ body.ui-visible .floating-nav {
 
 /* REDUNDANT BLOCK REMOVED */
 
+/* FAMILIA SECTION ======================================== */
+.familia-section {
+    background: linear-gradient(180deg, var(--bg-color-main) 0%, #f2f5ef 100%);
+}
+
+.familia-group {
+    margin: 25px auto;
+    max-width: 400px;
+    padding: 25px 20px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 16px;
+    border: 1px solid rgba(85, 107, 47, 0.12);
+    box-shadow: 0 8px 25px rgba(85, 107, 47, 0.08);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.familia-group:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(85, 107, 47, 0.14);
+}
+
+.familia-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+}
+
+.mama-group .familia-icon i {
+    color: #d4879c;
+}
+
+.familia-role {
+    font-family: var(--font-head);
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.familia-name {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--text-color);
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.familia-ampersand {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    margin: 2px 0;
+    opacity: 0.7;
+}
+
+.abuelos-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 /* SECTIONS ======================================== */
 /* PADRINOS SECTION ======================================== */
 .padrinos-grid {
